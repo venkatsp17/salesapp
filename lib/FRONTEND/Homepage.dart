@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sales/FRONTEND/Activity.dart';
 import 'package:sales/FRONTEND/Collections.dart';
 import 'package:sales/FRONTEND/Orders.dart';
 import 'package:sales/main.dart';
@@ -32,38 +33,42 @@ class _MainscreenState extends State<Mainscreen> {
           '/leaveapply': (context) => const Orders(),
           '/logout': (context) => const Orders(),
         },
-        home: SafeArea(
-          child: Scaffold(
-            resizeToAvoidBottomInset: false,
-            backgroundColor: const Color(0xffA09191),
-            drawer: const Maindrawer(),
-            appBar: AppBar(
-              iconTheme: const IconThemeData(color: Colors.black),
-              backgroundColor: Colors.white,
-              centerTitle: true,
-              title: const Text('XYZ',style: TextStyle(color: Colors.black),),
-            ),
-            body: _widgetOptions[_selectedIndex],
-            bottomNavigationBar: BottomNavigationBar(
-              iconSize: width * 10,
-              currentIndex: _selectedIndex,
-              items: const <BottomNavigationBarItem>[
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.shopping_cart),
-                  label: 'Orders',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.attach_money_outlined),
-                  label: 'Collections',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.minimize_outlined),
-                  label: 'Expenses',
-                ),
-              ],
-              selectedItemColor: Colors.cyan,
-              onTap: _onItemTapped,
-            ),
+        home: Scaffold(
+          resizeToAvoidBottomInset: false,
+          backgroundColor: const Color(0xffA09191),
+          drawer: const Maindrawer(),
+          appBar: AppBar(
+            actions: [
+              IconButton(onPressed: (){}, icon: const Icon(Icons.notifications, size: 30,)),
+              IconButton(onPressed: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> const Activity()));
+              }, icon: const Icon(Icons.calendar_today_outlined, size: 30,))
+            ],
+            iconTheme: const IconThemeData(color: Colors.black),
+            backgroundColor: Colors.white,
+            centerTitle: true,
+            title: const Text('XYZ',style: TextStyle(color: Colors.black),),
+          ),
+          body: _widgetOptions[_selectedIndex],
+          bottomNavigationBar: BottomNavigationBar(
+            iconSize: width * 10,
+            currentIndex: _selectedIndex,
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.shopping_cart),
+                label: 'Orders',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.attach_money_outlined),
+                label: 'Collections',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.minimize_outlined),
+                label: 'Expenses',
+              ),
+            ],
+            selectedItemColor: Colors.cyan,
+            onTap: _onItemTapped,
           ),
         ),
       );
