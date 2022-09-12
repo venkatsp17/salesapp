@@ -1,5 +1,6 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
+import 'package:sales/FRONTEND/NewCustomer/NewCustomer.dart';
 import 'package:sales/FRONTEND/NewOrder.dart';
 
 class Orders extends StatefulWidget {
@@ -64,7 +65,7 @@ class _OrdersState extends State<Orders> {
               final navigator = Navigator.of(context);
               await Future.delayed(Duration.zero);
               navigator.push(
-                MaterialPageRoute(builder: (_) => const Neworder()),
+                MaterialPageRoute(builder: (_) => const Newcustomer()),
               );
             },
             value: 2,
