@@ -1,4 +1,4 @@
-import 'package:dropdown_search/dropdown_search.dart';
+// import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 
 class stepper1 extends StatefulWidget {
@@ -17,8 +17,16 @@ class _stepper1State extends State<stepper1> {
   final TextEditingController _customerdn = TextEditingController();
   final TextEditingController _customerph = TextEditingController();
   final TextEditingController _customergst = TextEditingController();
+  final TextEditingController _accntno = TextEditingController();
+  final TextEditingController _panno = TextEditingController();
   String selectedValue = "Type 1";
+  String selectedValue1 = "Select a bank";
+  String selectedValue2 = "Select a IFSC";
+  String selectedValue3 = "Select a branch";
   List<String> types = ['Type 1','Type 2','Type 3'];
+  List<String> banks = ['Select a bank','SBI','TMB','FEDERAL','AXIS','ICICI'];
+  List<String> ifsc = ['Select a IFSC','12345','12346','12347','12348','12349'];
+  List<String> branches = ['Select a branch','Bangalore','Chennai','Madurai','Kochi','Hyderabad'];
 
   @override
   Widget build(BuildContext context) {
@@ -248,6 +256,173 @@ class _stepper1State extends State<stepper1> {
                         border: OutlineInputBorder(),
                       ),
                       controller: _customergst
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 20,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const SizedBox(
+                  width: 100,
+                  child: Text(
+                    "Bank Name",
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        overflow: TextOverflow.ellipsis),
+                    maxLines: 2,
+                  ),
+                ),
+                Container(
+                  height: 60,
+                  width: 200,
+                  child: DropdownButton(
+                    isExpanded: true,
+                    value: selectedValue1,
+                    icon: const Icon(Icons.keyboard_arrow_down),
+                    items: banks.map((String item) {
+                      return DropdownMenuItem(
+                        value: item,
+                        child: Text(item),
+                      );
+                    }).toList(),
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        selectedValue1 = newValue!;
+                      });
+                    },
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 20,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const SizedBox(
+                  width: 120,
+                  child: Text(
+                    "ACCOUNT NO",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Container(
+                  height: 50,
+                  width: 220,
+                  child: TextField(
+                      decoration: const InputDecoration(
+                        fillColor: Colors.white70,
+                        filled: true,
+                        border: OutlineInputBorder(),
+                      ),
+                      controller: _accntno
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 20,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const SizedBox(
+                  width: 100,
+                  child: Text(
+                    "IFSC CODE",
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        overflow: TextOverflow.ellipsis),
+                    maxLines: 2,
+                  ),
+                ),
+                Container(
+                  height: 60,
+                  width: 200,
+                  child: DropdownButton(
+                    isExpanded: true,
+                    value: selectedValue2,
+                    icon: const Icon(Icons.keyboard_arrow_down),
+                    items: ifsc.map((String item) {
+                      return DropdownMenuItem(
+                        value: item,
+                        child: Text(item),
+                      );
+                    }).toList(),
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        selectedValue2 = newValue!;
+                      });
+                    },
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 20,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const SizedBox(
+                  width: 100,
+                  child: Text(
+                    "BRANCH NAME",
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        overflow: TextOverflow.ellipsis),
+                    maxLines: 2,
+                  ),
+                ),
+                Container(
+                  height: 60,
+                  width: 200,
+                  child: DropdownButton(
+                    isExpanded: true,
+                    value: selectedValue3,
+                    icon: const Icon(Icons.keyboard_arrow_down),
+                    items: branches.map((String item) {
+                      return DropdownMenuItem(
+                        value: item,
+                        child: Text(item),
+                      );
+                    }).toList(),
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        selectedValue3 = newValue!;
+                      });
+                    },
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 20,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const SizedBox(
+                  width: 120,
+                  child: Text(
+                    "PAN NO",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Container(
+                  height: 50,
+                  width: 220,
+                  child: TextField(
+                      decoration: const InputDecoration(
+                        fillColor: Colors.white70,
+                        filled: true,
+                        border: OutlineInputBorder(),
+                      ),
+                      controller: _panno
                   ),
                 ),
               ],

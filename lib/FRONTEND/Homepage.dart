@@ -16,11 +16,11 @@ class _MainscreenState extends State<Mainscreen> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     var width = size.width / 100;
-    final _widgetOptions = [
-      const Orders(),
-      const Collections(),
-      const Orders(),
-    ];
+    // final _widgetOptions = [
+    //   const Orders(),
+    //   const Collections(),
+    //   const Orders(),
+    // ];
 
     return Builder(builder: (context) {
       return MaterialApp(
@@ -33,55 +33,96 @@ class _MainscreenState extends State<Mainscreen> {
           '/leaveapply': (context) => const Orders(),
           '/logout': (context) => const Orders(),
         },
-        home: Scaffold(
-          resizeToAvoidBottomInset: false,
-          backgroundColor: const Color(0xffA09191),
-          drawer: const Maindrawer(),
-          appBar: AppBar(
-            actions: [
-              IconButton(onPressed: (){}, icon: const Icon(Icons.notifications, size: 30,)),
-              IconButton(onPressed: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> const Activity()));
-              }, icon: const Icon(Icons.calendar_today_outlined, size: 30,))
-            ],
-            iconTheme: const IconThemeData(color: Colors.black),
-            backgroundColor: Colors.white,
-            centerTitle: true,
-            title: const Text('XYZ',style: TextStyle(color: Colors.black),),
-          ),
-          body: _widgetOptions[_selectedIndex],
-          bottomNavigationBar: BottomNavigationBar(
-            iconSize: width * 10,
-            currentIndex: _selectedIndex,
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: Icon(Icons.shopping_cart),
-                label: 'Orders',
+        home: DefaultTabController(
+          length: 3,
+          child: Scaffold(
+            resizeToAvoidBottomInset: false,
+            backgroundColor: const Color(0xffA09191),
+            drawer: const Maindrawer(),
+            appBar: AppBar(
+              bottom: const TabBar(
+                indicatorColor: Colors.cyan,
+                indicator: UnderlineTabIndicator(
+                  borderSide: BorderSide(color: Colors.cyan, width: 3.0)
+                ),
+                labelColor: Colors.black,
+                labelStyle: TextStyle(
+                  fontWeight: FontWeight.bold
+                ),
+                tabs: [
+                  Tab(text: "Orders", icon: Icon(Icons.shopping_cart)),
+                  Tab(text: "Collections", icon: Icon(Icons.attach_money_outlined)),
+                  Tab(text: "Expenses", icon: Icon(Icons.minimize_outlined)),
+                ],
               ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.attach_money_outlined),
-                label: 'Collections',
+              actions: [
+                IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.notifications,
+                      size: 30,
+                    )),
+                IconButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Activity()));
+                    },
+                    icon: const Icon(
+                      Icons.calendar_today_outlined,
+                      size: 30,
+                    ))
+              ],
+              iconTheme: const IconThemeData(color: Colors.black),
+              backgroundColor: Colors.white,
+              centerTitle: true,
+              title: const Text(
+                'XYZ',
+                style: TextStyle(color: Colors.black),
               ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.minimize_outlined),
-                label: 'Expenses',
-              ),
-            ],
-            selectedItemColor: Colors.cyan,
-            onTap: _onItemTapped,
+            ),
+            // body: _widgetOptions[_selectedIndex],
+            body: const TabBarView(
+              children: [
+                Orders(),
+                Collections(),
+                Orders(),
+              ],
+            ),
+            // bottomNavigationBar: BottomNavigationBar(
+            //   iconSize: width * 10,
+            //   currentIndex: _selectedIndex,
+            //   items: const <BottomNavigationBarItem>[
+            //     BottomNavigationBarItem(
+            //       icon: Icon(Icons.shopping_cart),
+            //       label: 'Orders',
+            //     ),
+            //     BottomNavigationBarItem(
+            //       icon: Icon(Icons.attach_money_outlined),
+            //       label: 'Collections',
+            //     ),
+            //     BottomNavigationBarItem(
+            //       icon: Icon(Icons.minimize_outlined),
+            //       label: 'Expenses',
+            //     ),
+            //   ],
+            //   selectedItemColor: Colors.cyan,
+            //   onTap: _onItemTapped,
+            // ),
           ),
         ),
       );
     });
   }
 
-  int _selectedIndex = 0;
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
+  // int _selectedIndex = 0;
+  //
+  // void _onItemTapped(int index) {
+  //   setState(() {
+  //     _selectedIndex = index;
+  //   });
+  // }
 }
 
 class Maindrawer extends StatelessWidget {
@@ -97,8 +138,8 @@ class Maindrawer extends StatelessWidget {
             currentAccountPicture: CircleAvatar(
               radius: 50.0,
               backgroundColor: Color(0xFF778899),
-              backgroundImage:
-              NetworkImage("https://www.pinkvilla.com/imageresize/tom_holland_15.jpg?width=752&format=webp&t=pvorg"),
+              backgroundImage: NetworkImage(
+                  "https://www.pinkvilla.com/imageresize/tom_holland_15.jpg?width=752&format=webp&t=pvorg"),
             ),
             accountEmail: Text(
               "venkatsp2002@gmail.com",
@@ -144,9 +185,7 @@ class Maindrawer extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                    const MyApp()),
+                MaterialPageRoute(builder: (context) => const MyApp()),
               );
             },
           ),
