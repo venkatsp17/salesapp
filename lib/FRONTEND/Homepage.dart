@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sales/FRONTEND/Activity.dart';
-import 'package:sales/FRONTEND/Collections.dart';
-import 'package:sales/FRONTEND/Orders.dart';
+import 'package:sales/FRONTEND/Collections/Collections.dart';
+import 'package:sales/FRONTEND/Orders/Orders.dart';
 import 'package:sales/main.dart';
 
 class Mainscreen extends StatefulWidget {

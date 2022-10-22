@@ -35,7 +35,6 @@ class _ActivityState extends State<Activity> {
     var height = size.height / 100;
 
     return Scaffold(
-
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.black,
         onPressed: () {
@@ -90,8 +89,7 @@ class _ActivityState extends State<Activity> {
                   Padding(
                     padding: const EdgeInsets.only(top: 8, bottom: 8),
                     child: Text(
-                      Mon[int.parse(DateTime.now().toString().substring(6, 7)) -
-                          1],
+                      Mon[int.parse(DateTime.now().toString().substring(5, 7))],
                       style: const TextStyle(
                           fontSize: 20, fontWeight: FontWeight.bold),
                     ),
@@ -101,7 +99,7 @@ class _ActivityState extends State<Activity> {
             ),
             Row(
               children: [
-                _controllers.isEmpty
+                time.isEmpty
                     ? Container(
                         alignment: Alignment.center,
                         height: height * 80,
@@ -175,13 +173,12 @@ class _ActivityState extends State<Activity> {
                                             ],
                                           ),
                                           Container(
-                                            color: Colors.green,
+                                            // color: Colors.green,
                                             width: 250,
                                             height: 50,
                                             child: Row(
                                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                               children: [
-                                                const SizedBox(width: 20,),
                                                 IconButton(onPressed: (){
 
                                                 }, icon: const Icon(Icons.message_outlined,size: 40,)),
@@ -202,6 +199,8 @@ class _ActivityState extends State<Activity> {
                                       IconButton(onPressed: (){
                                         setState(() {
                                           time.removeAt(index);
+                                          _controllers.removeAt(index);
+                                          count--;
                                         });
                                       },
                                           icon: const Icon(Icons.remove_circle, color: Colors.red,size: 35,)

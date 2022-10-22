@@ -1,7 +1,7 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
-import 'package:sales/FRONTEND/NewCustomer/NewCustomer.dart';
-import 'package:sales/FRONTEND/NewOrder.dart';
+import 'package:sales/FRONTEND/Customers/NewCustomer/NewCustomer.dart';
+import 'package:sales/FRONTEND/Orders/NewOrder.dart';
 
 class Orders extends StatefulWidget {
   const Orders({Key? key}) : super(key: key);

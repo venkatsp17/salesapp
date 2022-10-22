@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:sales/FRONTEND/NewCustomer/stepper1.dart';
-import 'package:sales/FRONTEND/NewCustomer/stepper2.dart';
-import 'package:sales/FRONTEND/NewCustomer/stepper3.dart';
+import 'package:sales/FRONTEND/Customers/NewCustomer/stepper1.dart';
+import 'package:sales/FRONTEND/Customers/NewCustomer/stepper2.dart';
+import 'package:sales/FRONTEND/Customers/NewCustomer/stepper3.dart';
 
 class Newcustomer extends StatefulWidget {
   const Newcustomer({Key? key}) : super(key: key);
