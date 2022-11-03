@@ -2,6 +2,7 @@ import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:sales/FRONTEND/Customers/NewCustomer/NewCustomer.dart';
 import 'package:sales/FRONTEND/Orders/NewOrder.dart';
+import 'package:sales/FRONTEND/Orders/Order_Details.dart';
 
 class Orders extends StatefulWidget {
   const Orders({Key? key}) : super(key: key);
@@ -17,13 +18,19 @@ class _OrdersState extends State<Orders> {
       "customername": "Venkat Raman S P",
       "orderid": "O328",
       "date": "01/09/2002",
-      "status": "Not Approved"
+      "status": "Not Approved",
+      "payment": "Cash",
+      "delivery": "Method1",
+      "total":"50000000"
     },
     {
       "customername": "Venkat S P",
       "orderid": "O328",
       "date": "01/09/2002",
-      "status": "Pending"
+      "status": "Pending",
+      "payment": "Cash",
+      "delivery": "Method1",
+      "total":"50000000"
     }
   ];
   List data1 = [
@@ -31,7 +38,10 @@ class _OrdersState extends State<Orders> {
   "customername": "Venkat Raman S P",
   "orderid": "O328",
   "date": "01/09/2002",
-  "status": "Approved"
+  "status": "Approved",
+    "payment": "Cash",
+    "delivery": "Method1",
+    "total":"50000000"
 },
     ];
   List data = [
@@ -39,7 +49,10 @@ class _OrdersState extends State<Orders> {
       "customername": "Venkat Raman S P",
       "orderid": "O328",
       "date": "01/09/2002",
-      "status": "Delivered"
+      "status": "Delivered",
+      "payment": "Cash",
+      "delivery": "Method1",
+      "total":"50000000"
     },
   ];
   @override
@@ -188,100 +201,110 @@ class _OrdersState extends State<Orders> {
       child: ListView.builder(
           itemCount: cdata.length,
           itemBuilder: (BuildContext context, int index){
-            return Padding(
-              padding: const EdgeInsets.only(top: 0.5),
-              child: Container(
-                height: 100,
-                decoration: BoxDecoration(
-                  border: Border.all(),
-                  color: Colors.white70,
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Row(
-                            children: [
-                              const Text("Customer Name: ",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                ),
-                              ),
-                              Text(cdata[index]["customername"],
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              const Text("Order ID: ",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                ),
-                              ),
-                              Text(cdata[index]["orderid"],
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              const Text("Order Date: ",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                ),
-                              ),
-                              Text(cdata[index]["date"],
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      Container(
-                        width: 120,
-                        height: 50,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
+            return GestureDetector(
+              onTap: (){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                      Orderdetails(data: cdata[index])),
+                );
+              },
+              child: Padding(
+                padding: const EdgeInsets.only(top: 0.5),
+                child: Container(
+                  height: 100,
+                  decoration: BoxDecoration(
+                    border: Border.all(),
+                    color: Colors.white70,
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            const Text("Status",
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold
-                              ),
+                            Row(
+                              children: [
+                                const Text("Customer Name: ",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                                Text(cdata[index]["customername"],
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ],
                             ),
-                            Container(
-                              decoration: BoxDecoration(
-                                color: Colors.black,
-                                borderRadius: BorderRadius.circular(20)
-                              ),
-                              alignment: Alignment.center,
-                              width: 130,
-                              child: Text(cdata[index]['status'],
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: color1,
-                                  fontSize: 15,
-                                ),),
-                            )
+                            Row(
+                              children: [
+                                const Text("Order ID: ",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                                Text(cdata[index]["orderid"],
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                const Text("Order Date: ",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                                Text(cdata[index]["date"],
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ],
                         ),
-                      )
-                    ],
+                        Container(
+                          width: 120,
+                          height: 50,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text("Status",
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold
+                                ),
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.black,
+                                  borderRadius: BorderRadius.circular(20)
+                                ),
+                                alignment: Alignment.center,
+                                width: 130,
+                                child: Text(cdata[index]['status'],
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: color1,
+                                    fontSize: 15,
+                                  ),),
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
