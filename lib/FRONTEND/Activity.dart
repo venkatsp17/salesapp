@@ -89,7 +89,7 @@ class _ActivityState extends State<Activity> {
                   Padding(
                     padding: const EdgeInsets.only(top: 8, bottom: 8),
                     child: Text(
-                      Mon[int.parse(DateTime.now().toString().substring(5, 7))],
+                      Mon[int.parse(DateTime.now().toString().substring(5, 6))],
                       style: const TextStyle(
                           fontSize: 20, fontWeight: FontWeight.bold),
                     ),

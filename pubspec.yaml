@@ -38,6 +38,7 @@ dependencies:
   im_stepper: ^1.0.1+1
   dropdown_search: ^2.0.1
   csc_picker:
+  http:
 
 dev_dependencies:
   flutter_test:

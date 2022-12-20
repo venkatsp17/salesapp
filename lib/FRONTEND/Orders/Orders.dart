@@ -1,5 +1,6 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
+import 'package:sales/BACKEND/Ordersb.dart';
 import 'package:sales/FRONTEND/Customers/NewCustomer/NewCustomer.dart';
 import 'package:sales/FRONTEND/Orders/NewOrder.dart';
 import 'package:sales/FRONTEND/Orders/Order_Details.dart';
@@ -13,48 +14,40 @@ class Orders extends StatefulWidget {
 
 class _OrdersState extends State<Orders> {
 
-  List data2 = [
-    {
-      "customername": "Venkat Raman S P",
-      "orderid": "O328",
-      "date": "01/09/2002",
-      "status": "Not Approved",
-      "payment": "Cash",
-      "delivery": "Method1",
-      "total":"50000000"
-    },
-    {
-      "customername": "Venkat S P",
-      "orderid": "O328",
-      "date": "01/09/2002",
-      "status": "Pending",
-      "payment": "Cash",
-      "delivery": "Method1",
-      "total":"50000000"
+
+  final Ordersb obj = Ordersb();
+  List data = [];
+  List data1 = [];
+  List data2 = [];
+  @override
+  void initState() {
+    // TODO: implement initState
+    fetchOrderData();
+    super.initState();
+  }
+  fetchOrderData() async {
+    dynamic resultant = await obj.makeGetRequest();
+    if(resultant==null){
+      print("Unable to retrieve");
+    }else{
+      setState(() {
+        for(int i=0;i<resultant.length;i++){
+          if(resultant[i]['status']=="Not Approved" || resultant[i]['status']=="Pending"){
+            data2.add(resultant[i]);
+          }
+          else if(resultant[i]['status']=="Approved"){
+            data1.add(resultant[i]);
+          }
+          else{
+            data.add(resultant[i]);
+          }
+        }
+
+      });
+
     }
-  ];
-  List data1 = [
-  {
-  "customername": "Venkat Raman S P",
-  "orderid": "O328",
-  "date": "01/09/2002",
-  "status": "Approved",
-    "payment": "Cash",
-    "delivery": "Method1",
-    "total":"50000000"
-},
-    ];
-  List data = [
-    {
-      "customername": "Venkat Raman S P",
-      "orderid": "O328",
-      "date": "01/09/2002",
-      "status": "Delivered",
-      "payment": "Cash",
-      "delivery": "Method1",
-      "total":"50000000"
-    },
-  ];
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -92,7 +85,7 @@ class _OrdersState extends State<Orders> {
       ),
       backgroundColor: const Color(0xffA09191),
       body: SingleChildScrollView(
-        child: Column(
+                child: Column(
           children: [
             Container(
               margin: EdgeInsets.only(top: 10),
@@ -124,7 +117,7 @@ class _OrdersState extends State<Orders> {
                       softWrap: true,
                       maxLines: 1,
                     ),
-                    expanded: CList(context, data, Color(0xffB6E2D3), Colors.green),
+                    expanded: (data.isEmpty)?const Text("No Data"):CList(context, data, const Color(0xffB6E2D3), Colors.green),
                     theme: const ExpandableThemeData(hasIcon: false),
                   ),
                   ExpandablePanel(
@@ -153,7 +146,7 @@ class _OrdersState extends State<Orders> {
                       softWrap: true,
                       maxLines: 1,
                     ),
-                    expanded: CList(context, data1, Color(0xffFBC490), Colors.orange),
+                    expanded: (data1.isEmpty)?const Text("No Data"):CList(context, data1, Color(0xffFBC490), Colors.orange),
                     theme: const ExpandableThemeData(hasIcon: false),
                   ),
                   ExpandablePanel(
@@ -182,7 +175,7 @@ class _OrdersState extends State<Orders> {
                       softWrap: true,
                       maxLines: 1,
                     ),
-                    expanded: CList(context, data2, Color(0xffF36870),Colors.red),
+                    expanded: (data2.isEmpty)?const Text("No Data"):CList(context, data2, Color(0xffF36870),Colors.red),
                     theme: const ExpandableThemeData(hasIcon: false),
                   ),
                 ],

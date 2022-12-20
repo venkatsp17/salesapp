@@ -53,7 +53,6 @@ class _OrderdetailsState extends State<Orderdetails> {
               view("Customer Name", widget.data["customername"]),
               view("Order ID", widget.data["orderid"]),
               view("Sales Order Date", widget.data["date"]),
-              view("Payment Terms", widget.data["payment"]),
               view("Delivery Method", widget.data["delivery"]),
               view("Total", widget.data["total"]),
               Container(
@@ -118,7 +117,7 @@ class _OrderdetailsState extends State<Orderdetails> {
                   height: 200,
                   width: double.infinity,
                   child: ListView.builder(
-                      itemCount: data4.length,
+                      itemCount: widget.data['productnames'].length,
                       itemBuilder: (BuildContext context, int index) {
                     return Container(
                       child: Row(
@@ -127,7 +126,7 @@ class _OrderdetailsState extends State<Orderdetails> {
                           SizedBox(
                             width: 70,
                             child: Text(
-                              data4[index]['name'],
+                              widget.data['productnames'][index],
                               style: const TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
@@ -137,7 +136,7 @@ class _OrderdetailsState extends State<Orderdetails> {
                           SizedBox(
                             width: 60,
                             child: Text(
-                              data4[index]['qty'],
+                              widget.data['productqty'][index],
                               style: const TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
@@ -147,7 +146,7 @@ class _OrderdetailsState extends State<Orderdetails> {
                           SizedBox(
                             width: 80,
                             child: Text(
-                              data4[index]['rate'],
+                              widget.data['productrate'][index],
                               style: const TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
@@ -155,7 +154,7 @@ class _OrderdetailsState extends State<Orderdetails> {
                             ),
                           ),
                           Text(
-                            data4[index]['amt'],
+                            widget.data['productamt'][index],
                             style: const TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,

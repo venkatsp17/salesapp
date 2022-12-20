@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:sales/FRONTEND/Customers/NewCustomer/NewCustomer.dart';
 
 class Neworder extends StatefulWidget {
   const Neworder({Key? key}) : super(key: key);
@@ -27,9 +28,13 @@ class _NeworderState extends State<Neworder> {
   List orderitems = [
     {
       "itemname": TextEditingController(),
-      "qty": TextEditingController(),
-      "rate": TextEditingController(),
-      "amount": TextEditingController()
+      "details": [
+        {
+          "qty": TextEditingController(),
+          "rate": TextEditingController(),
+          "amount": TextEditingController()
+        }
+      ]
     },
   ];
 
@@ -70,8 +75,9 @@ class _NeworderState extends State<Neworder> {
                           maxLines: 2,
                         ),
                       ),
-                      SizedBox(
-                        width: 270,
+                      Container(
+                        alignment: Alignment.center,
+                        width: 250,
                         height: 90,
                         child: DropdownSearch<String>(
                           mode: Mode.DIALOG,
@@ -87,6 +93,20 @@ class _NeworderState extends State<Neworder> {
                           },
                         ),
                       ),
+                      SizedBox(
+                        height: 90,
+                        child: IconButton(
+                          alignment: Alignment.center,
+                            onPressed: (){
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                    const Newcustomer()),
+                              );
+                        }, icon: const Icon(Icons.add_circle,size: 35,)
+                        ),
+                      )
                     ],
                   ),
                 ),
@@ -162,43 +182,6 @@ class _NeworderState extends State<Neworder> {
                       const SizedBox(
                         width: 100,
                         child: Text(
-                          "Payment Method",
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        height: 60,
-                        width: 145,
-                        child: DropdownButton(
-                          value: dropdownvalue,
-                          icon: const Icon(Icons.keyboard_arrow_down),
-                          items: items.map((String item) {
-                            return DropdownMenuItem(
-                              value: item,
-                              child: Text(item),
-                            );
-                          }).toList(),
-                          onChanged: (String? newValue) {
-                            setState(() {
-                              dropdownvalue = newValue!;
-                            });
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const SizedBox(
-                        width: 100,
-                        child: Text(
                           "Delivery Method",
                           style: TextStyle(
                             fontSize: 20,
@@ -244,7 +227,7 @@ class _NeworderState extends State<Neworder> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
-                    height: 140 * h,
+                    height: 500,
                     // color: Colors.blue,
                     child: CupertinoScrollbar(
                       child: ListView.builder(
@@ -252,8 +235,11 @@ class _NeworderState extends State<Neworder> {
                           itemCount: orderitems.length,
                           itemBuilder: (BuildContext context, int index) {
                             return Container(
+                              decoration: BoxDecoration(
+                                  border: Border.all()
+                              ),
                               // color: Colors.green,
-                              height: 120,
+                              height: 245,
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Column(
@@ -261,6 +247,9 @@ class _NeworderState extends State<Neworder> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
+                                    Text("Item ${index+1}",style: const TextStyle(
+                                      fontWeight: FontWeight.bold
+                                    ),),
                                     Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
@@ -291,64 +280,97 @@ class _NeworderState extends State<Neworder> {
                                                 }
                                               });
                                             },
-                                            icon: Icon(
+                                            icon: const Icon(
                                               Icons.remove_circle,
                                               color: Colors.red,
                                               size: 30,
-                                            ))
+                                            )),
+                                        IconButton(onPressed: (){
+                                          setState(() {
+                                            orderitems[index]['details'].add(
+                                                {
+                                                  "qty": TextEditingController(),
+                                                  "rate": TextEditingController(),
+                                                  "amount": TextEditingController()
+                                                }
+                                            );
+                                          });
+                                        },
+                                            icon: const Icon(Icons.add_circle,color: Colors.green,size: 30,)
+                                        )
                                       ],
                                     ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        const SizedBox(
-                                          width: 30,
-                                        ),
-                                        Container(
-                                          height: 50,
-                                          width: 110,
-                                          child: TextField(
-                                            decoration: const InputDecoration(
-                                              fillColor: Colors.white70,
-                                              labelText: "OTY",
-                                              filled: true,
-                                              border: OutlineInputBorder(),
-                                            ),
-                                            controller: orderitems[index]
-                                                ['qty'],
-                                          ),
-                                        ),
-                                        Container(
-                                          height: 50,
-                                          width: 110,
-                                          child: TextField(
-                                            decoration: const InputDecoration(
-                                              labelText: "RATE",
-                                              fillColor: Colors.white70,
-                                              filled: true,
-                                              border: OutlineInputBorder(),
-                                            ),
-                                            controller: orderitems[index]
-                                                ['rate'],
-                                          ),
-                                        ),
-                                        Container(
-                                          height: 50,
-                                          width: 110,
-                                          child: TextField(
-                                            decoration: const InputDecoration(
-                                              labelText: "AMT",
-                                              fillColor: Colors.white70,
-                                              filled: true,
-                                              border: OutlineInputBorder(),
-                                            ),
-                                            controller: orderitems[index]
-                                                ['amount'],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
+                                    Container(
+                                      height: 160,
+                                      child: ListView.builder(
+                                        itemCount: orderitems[index]['details'].length,
+                                          itemBuilder: (BuildContext context, int index1){
+                                            return Padding(
+                                              padding: const EdgeInsets.all(1.0),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  const SizedBox(
+                                                    width: 30,
+                                                  ),
+                                                  Container(
+                                                    height: 50,
+                                                    width: 80,
+                                                    child: TextField(
+                                                      decoration: const InputDecoration(
+                                                        fillColor: Colors.white70,
+                                                        labelText: "OTY",
+                                                        filled: true,
+                                                        border: OutlineInputBorder(),
+                                                      ),
+                                                      controller: orderitems[index]
+                                                      ['details'][index1]['qty'],
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    height: 50,
+                                                    width: 110,
+                                                    child: TextField(
+                                                      decoration: const InputDecoration(
+                                                        labelText: "RATE",
+                                                        fillColor: Colors.white70,
+                                                        filled: true,
+                                                        border: OutlineInputBorder(),
+                                                      ),
+                                                      controller:orderitems[index]
+                                                      ['details'][index1]['rate'],
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    height: 50,
+                                                    width: 110,
+                                                    child: TextField(
+                                                      decoration: const InputDecoration(
+                                                        labelText: "AMT",
+                                                        fillColor: Colors.white70,
+                                                        filled: true,
+                                                        border: OutlineInputBorder(),
+                                                      ),
+                                                      controller: orderitems[index]
+                                                      ['details'][index1]['amount'],
+                                                    ),
+                                                  ),
+                                                  IconButton(onPressed: (){
+                                                      setState(() {
+                                                       if(index1!=0){
+                                                         orderitems[index]['details'].removeAt(index1);
+                                                       }
+                                                      });
+                                                  },
+                                                      icon: const Icon(Icons.remove_circle,color: Colors.red,size: 30,)
+                                                  )
+                                                ],
+                                              ),
+                                            );
+                                          }
+                                      ),
+                                    )
                                   ],
                                 ),
                               ),
@@ -364,9 +386,13 @@ class _NeworderState extends State<Neworder> {
                       setState(() {
                         orderitems.add({
                           "itemname": TextEditingController(),
-                          "qty": TextEditingController(),
-                          "rate": TextEditingController(),
-                          "amount": TextEditingController()
+                          "details":[
+                            {
+                              "qty": TextEditingController(),
+                              "rate": TextEditingController(),
+                              "amount": TextEditingController()
+                            }
+                          ]
                         });
                         if (count < 4) {
                           h = h + 0.9;

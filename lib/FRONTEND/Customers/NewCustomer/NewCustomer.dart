@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sales/FRONTEND/Customers/NewCustomer/stepper1.dart';
 import 'package:sales/FRONTEND/Customers/NewCustomer/stepper2.dart';
 import 'package:sales/FRONTEND/Customers/NewCustomer/stepper3.dart';
+import 'package:sales/FRONTEND/Orders/NewOrder.dart';
 
 class Newcustomer extends StatefulWidget {
   const Newcustomer({Key? key}) : super(key: key);
@@ -127,7 +128,12 @@ class _NewcustomerState extends State<Newcustomer> {
                         )
                     ),
                     onPressed: (){
-
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                            const Neworder()),
+                      );
                     },
                     child: const Text("Save & Order", style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
                   ),
