@@ -1,5 +1,6 @@
-import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
+// import 'package:sales/BACKEND/Ordersb.dart';
+import 'package:sales/BACKEND/detailsb.dart';
 import 'package:sales/FRONTEND/Collections/Collection_Details.dart';
 import 'package:sales/FRONTEND/Collections/NewCollection.dart';
 
@@ -12,33 +13,36 @@ class Collections extends StatefulWidget {
 
 class _CollectionsState extends State<Collections> {
 
+  final Detailsb obj = Detailsb();
 
-  List data2 = [
-    {
-      "customername": "Venkat Raman S P",
-      "days": "10",
-      "rs": "10000"
-    },
-    {
-      "customername": "Venkat S P",
-      "days": "12",
-      "rs": "50000"
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    fetchCollectionData();
+    super.initState();
+  }
+
+  fetchCollectionData() async {
+    dynamic resultant = await obj.makeGetRequest();
+    if(resultant==null){
+      print("Unable to retrieve");
+    }else{
+       setState(() {
+         result = resultant;
+         print(result);
+       });
+      }
     }
-  ];
-  List data1 = [
-    {
-      "customername": "Venkat Raman S P",
-      "days": "35",
-      "rs": "1000"
-    },
-  ];
-  List data = [
-    {
-      "customername": "Venkat Raman S P",
-      "days": "120",
-      "rs": "200000"
-    },
-  ];
+    nod(String date){
+     List l = date.split('/');
+     final date2 = DateTime.now();
+     DateTime e = DateTime(int.parse(l[2]),int.parse(l[1]),int.parse(l[0]));
+     return date2.difference(e).inDays;
+    }
+  List result = [];
+  String dropdownvalue = "60";
+  List<String> items1 = ["15","30","45","60"];
 
 
   @override
@@ -66,93 +70,49 @@ class _CollectionsState extends State<Collections> {
               margin: EdgeInsets.only(top: 10),
               child: Column(
                 children: [
-                  ExpandablePanel(
-                    header: Container(
-                      color: Colors.white,
-                      height: 80,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: const [
-                            Text("More than 60 Days",
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 25,
-                                  fontWeight: FontWeight.bold
-                              ),
-                            ),
-                            Icon(Icons.circle,color: Colors.green,size: 30,)
-                          ],
+                Container(
+                color: Colors.white,
+                height: 80,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text("More than",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold
                         ),
                       ),
-                    ),
-                    collapsed: const Text(
-                      "",
-                      softWrap: true,
-                      maxLines: 1,
-                    ),
-                    expanded: CList(context, data, Color(0xffB6E2D3), Colors.green),
-                    theme: const ExpandableThemeData(hasIcon: false),
-                  ),
-                  ExpandablePanel(
-                    header: Container(
-                      color: Colors.white,
-                      height: 80,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: const [
-                            Text("More than 30 Days",
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 25,
-                                  fontWeight: FontWeight.bold
-                              ),
-                            ),
-                            Icon(Icons.circle,color: Colors.orange,size: 30,)
-                          ],
+                      DropdownButton(
+                        value: dropdownvalue,
+                        // icon: const Icon(Icons.keyboard_arrow_down),
+                        items: items1.map((String item) {
+                          return DropdownMenuItem(
+                            value: item,
+                            child: Text(item,style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
+                          );
+                        }).toList(),
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            dropdownvalue = newValue!;
+                          });
+                        },
+                      ),
+                      const Text("Days",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold
                         ),
                       ),
-                    ),
-                    collapsed: const Text(
-                      "",
-                      softWrap: true,
-                      maxLines: 1,
-                    ),
-                    expanded: CList(context, data1, Color(0xffFBC490), Colors.orange),
-                    theme: const ExpandableThemeData(hasIcon: false),
+                      const Icon(Icons.circle,color: Colors.green,size: 30,)
+                    ],
                   ),
-                  ExpandablePanel(
-                    header: Container(
-                      color: Colors.white,
-                      height: 80,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: const [
-                            Text("Less than 15 Days",
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 25,
-                                  fontWeight: FontWeight.bold
-                              ),
-                            ),
-                            Icon(Icons.circle,color: Colors.red,size: 30,)
-                          ],
-                        ),
-                      ),
-                    ),
-                    collapsed: const Text(
-                      "",
-                      softWrap: true,
-                      maxLines: 1,
-                    ),
-                    expanded: CList(context, data2, Color(0xffF36870),Colors.red),
-                    theme: const ExpandableThemeData(hasIcon: false),
-                  ),
+                ),
+              ),
+                  CList(context, result, Color(0xffB6E2D3), Colors.green),
                 ],
               ),
             ),
@@ -166,11 +126,11 @@ class _CollectionsState extends State<Collections> {
   Widget CList(BuildContext context, cdata, Color color,  Color color1){
     return  Container(
       color: color,
-      height: 400,
+      height: 650,
       child: ListView.builder(
           itemCount: cdata.length,
           itemBuilder: (BuildContext context, int index){
-            return GestureDetector(
+            return int.parse(nod(cdata[index]['orderdates'][0].toString()))==int.parse(dropdownvalue)?GestureDetector(
               onTap: (){
                 Navigator.push(
                     context,
@@ -193,7 +153,7 @@ class _CollectionsState extends State<Collections> {
                        Container(
                          width: 190,
                          alignment: Alignment.center,
-                         child: Text(cdata[index]['customername'].toString(),
+                         child: Text(cdata[index]['companyname'].toString(),
                            style: const TextStyle(
                                color: Colors.black,
                                fontSize: 20,
@@ -204,7 +164,7 @@ class _CollectionsState extends State<Collections> {
                        Container(
                          alignment: Alignment.center,
                          width: 80,
-                         child: Text(cdata[index]['days'].toString(),
+                         child: Text(nod(cdata[index]['orderdates'][0].toString()).toString(),
                            style: const TextStyle(
                                color: Colors.black,
                                fontSize: 20,
@@ -215,7 +175,7 @@ class _CollectionsState extends State<Collections> {
                        Container(
                          width: 130,
                          alignment: Alignment.center,
-                         child: Text('Rs.${cdata[index]['rs']}',
+                         child: Text('Rs.${cdata[index]['openingbalance']}',
                            style: const TextStyle(
                                color: Colors.black,
                                fontSize: 20,
@@ -228,7 +188,7 @@ class _CollectionsState extends State<Collections> {
                   ),
                 ),
               ),
-            );
+            ):const Text("No data available in the range");
           }
       ),
     );

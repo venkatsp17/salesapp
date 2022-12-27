@@ -1,0 +1,68 @@
+
+  List data2 = [
+    {
+      "orderid": "O901",
+      "deliverydate": "10-10-2022",
+      "amount": "10000"
+    },
+    {
+      "orderid": "O983",
+      "deliverydate": "12-12-2022",
+      "amount": "50000"
+    },
+    {
+      "orderid": "O983",
+      "deliverydate": "12-12-2022",
+      "amount": "50000"
+    }
+  ];
+  List data1 = [
+    {
+      "pid": "P901",
+      "date": "10-10-2022",
+      "status": "P",
+      "amount": "10000"
+    },
+    {
+      "pid": "P902",
+      "date": "10-10-2022",
+      "status": "P",
+      "amount": "10000"
+    },
+    {
+      "pid": "P903",
+      "date": "10-10-2022",
+      "status": "P",
+      "amount": "10000"
+    }
+  ];
+
+  ????????????????????????????????????????????
+
+
+  List data2 = [
+      {
+        "customername": "Venkat Raman S P",
+        "days": "10",
+        "rs": "10000"
+      },
+      {
+        "customername": "Venkat S P",
+        "days": "12",
+        "rs": "50000"
+      }
+    ];
+    List data1 = [
+      {
+        "customername": "Venkat Raman S P",
+        "days": "35",
+        "rs": "1000"
+      },
+    ];
+    List data = [
+      {
+        "customername": "Venkat Raman S P",
+        "days": "120",
+        "rs": "200000"
+      },
+    ];

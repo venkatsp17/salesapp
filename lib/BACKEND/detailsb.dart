@@ -2,26 +2,92 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
+
+class Customer{
+  final String name;
+  final String address;
+
+  const Customer({
+    required this.name,
+    required this.address
+  });
+
+  static Customer fromJson(Map<String,dynamic> data) => Customer(
+      name: data['companyname'],
+      address: data['address']
+  );
+
+}
+
 class Detailsb{
 
   Future makeGetRequest() async {
-    final url2 = Uri.parse("http://127.0.0.1:8000/api/orders/");
+    final url2 = Uri.parse("http://127.0.0.1:8000/api/collection/");
     http.Response response = await http.get(url2);
     // print('Status code: ${response.statusCode}');
     // print('Headers: ${response.headers}');
     print('Body: ${response.body}');
-    List? orderlist = [];
+    List? collectionlist = [];
     List? resbody = jsonDecode(response.body);
     int? len = resbody?.length;
     if(response.statusCode==200) {
       for (int i = 0; i < len!; i++) {
-        orderlist.add(resbody![i]);
+        collectionlist.add(resbody![i]);
       }
-      return orderlist;
+      return collectionlist;
     }
     else{
       print("Unable to retrieve data");
       return null;
     }
   }
+  Future makeGetRequest1(String id) async {
+    final url2 = Uri.parse("http://127.0.0.1:8000/api/details/$id");
+    final url3 = Uri.parse("http://127.0.0.1:8000/api/details1/$id");
+    http.Response response = await http.get(url2);
+    http.Response response1 = await http.get(url3);
+    // print('Status code: ${response.statusCode}');
+    // print('Headers: ${response.headers}');
+    print('Body: ${response.body}');
+    print('Body1: ${response1.body}');
+    List? orderlist = [];
+    List? paymentlist = [];
+    List? resbody = jsonDecode(response.body);
+    List? resbody1 = jsonDecode(response1.body);
+    int? len = resbody?.length;
+    int? len1 = resbody1?.length;
+    if(response.statusCode==200 || response1.statusCode==200) {
+      for(int j=0;j<len1!;j++){
+        paymentlist.add(resbody1![j]);
+      }
+      for (int i = 0; i < len!; i++) {
+        orderlist.add(resbody![i]);
+      }
+      return [orderlist,paymentlist];
+    }
+    else{
+      print("Unable to retrieve data");
+      return null;
+    }
+  }
+
+  Future getcustomers(String query) async {
+    final url2 = Uri.parse("http://127.0.0.1:8000/api/customers/");
+    http.Response response = await http.get(url2);
+    print('Body: ${response.body}');
+    List? resbody = jsonDecode(response.body);
+    if(response.statusCode==200) {
+      return resbody?.map((data) => Customer.fromJson(data)).where((element) {
+          final namelower = element.name.toLowerCase();
+          final  querylower = query.toLowerCase();
+
+          return namelower.contains(querylower);
+      }).toList();
+    }
+    else{
+      print("Unable to retrieve data");
+      return null;
+    }
+  }
+
 }
