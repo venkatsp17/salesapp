@@ -21,157 +21,166 @@ class _stepper3State extends State<stepper3> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(
-            width: 160,
+
+    var size = MediaQuery.of(context).size;
+    var height = size.height/100;
+    var width = size.width/100;
+
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          child: SizedBox(
+            width: width*30,
             child: Text(
               "Other Details",
               style: TextStyle(
-                fontSize: 20,
+                fontSize: width*4.5,
                 fontWeight: FontWeight.bold,
               ),
             ),
           ),
-          SizedBox(height: 20,),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const SizedBox(
-                width: 90,
-                child: Text(
-                  "Opening Balance",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
+        ),
+        const SizedBox(height: 20,),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            SizedBox(
+              width: width*30,
+              child: Text(
+                "Opening Balance",
+                style: TextStyle(
+                  fontSize: width*4.5,
+                  fontWeight: FontWeight.bold,
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  width: 250,
-                  child: TextField(
-                    decoration: const InputDecoration(
-                      fillColor: Colors.white70,
-                      filled: true,
-                      border: OutlineInputBorder(),
-                    ),
-                    controller: _openbal,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const SizedBox(
-                width: 90,
-                child: Text(
-                  "Payment Terms",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              Container(
-                height: 60,
-                width: 250,
-                child: DropdownButton(
-                  isExpanded: true,
-                  value: selectedValue,
-                  icon: const Icon(Icons.keyboard_arrow_down),
-                  items: payments.map((String item) {
-                    return DropdownMenuItem(
-                      value: item,
-                      child: Text(item),
-                    );
-                  }).toList(),
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      selectedValue = newValue!;
-                    });
-                  },
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: 40,),
-          const SizedBox(
-            width: 160,
-            child: Text(
-              "Contact Details",
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                height: height*6,
+                width: width*48,
+                child: TextField(
+                  decoration: const InputDecoration(
+                    fillColor: Colors.white70,
+                    filled: true,
+                    border: OutlineInputBorder(),
+                  ),
+                  controller: _openbal,
+                ),
+              ),
+            ),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            SizedBox(
+              width: width*30,
+              child: Text(
+                "Payment Terms",
+                style: TextStyle(
+                  fontSize: width*4.5,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: height*6,
+              width: width*50,
+              child: DropdownButton(
+                isExpanded: true,
+                value: selectedValue,
+                icon: const Icon(Icons.keyboard_arrow_down),
+                items: payments.map((String item) {
+                  return DropdownMenuItem(
+                    value: item,
+                    child: Text(item),
+                  );
+                }).toList(),
+                onChanged: (String? newValue) {
+                  setState(() {
+                    selectedValue = newValue!;
+                  });
+                },
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 40,),
+        SizedBox(
+          width: width*35,
+          child: Text(
+            "Contact Details",
+            style: TextStyle(
+              fontSize: width*4.5,
+              fontWeight: FontWeight.bold,
+            ),
           ),
-          SizedBox(height: 20,),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const SizedBox(
-                width: 90,
-                child: Text(
-                  "Name",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
+        ),
+        const SizedBox(height: 20,),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            SizedBox(
+              width: width*20,
+              child: Text(
+                "Name",
+                style: TextStyle(
+                  fontSize: width*4.5,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  width: 250,
-                  child: TextField(
-                    decoration: const InputDecoration(
-                      fillColor: Colors.white70,
-                      filled: true,
-                      border: OutlineInputBorder(),
-                    ),
-                    controller: _name,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                width: width*50,
+                height: height*6,
+                child: TextField(
+                  decoration: const InputDecoration(
+                    fillColor: Colors.white70,
+                    filled: true,
+                    border: OutlineInputBorder(),
                   ),
+                  controller: _name,
                 ),
               ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const SizedBox(
-                width: 90,
-                child: Text(
-                  "Mobile No.",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
+            ),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            SizedBox(
+              width: width*30,
+              child: Text(
+                "Mobile No.",
+                style: TextStyle(
+                  fontSize: width*4.5,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  width: 250,
-                  child: TextField(
-                    decoration: const InputDecoration(
-                      fillColor: Colors.white70,
-                      filled: true,
-                      border: OutlineInputBorder(),
-                    ),
-                    controller: _phno,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                height: height*6,
+                width: width*50,
+                child: TextField(
+                  decoration: const InputDecoration(
+                    fillColor: Colors.white70,
+                    filled: true,
+                    border: OutlineInputBorder(),
                   ),
+                  controller: _phno,
                 ),
               ),
-            ],
-          ),
-        ],
-      ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

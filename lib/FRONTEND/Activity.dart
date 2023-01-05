@@ -65,6 +65,12 @@ class _ActivityState extends State<Activity> {
         ),
       ),
       appBar: AppBar(
+        centerTitle: false,
+        title: Text(
+         "Activities",
+          style:TextStyle(
+              fontSize: width*4.5, fontWeight: FontWeight.bold,color: Colors.black),
+        ),
         iconTheme: const IconThemeData(color: Colors.black),
         backgroundColor: Colors.white,
       ),
@@ -73,7 +79,7 @@ class _ActivityState extends State<Activity> {
           children: [
             Container(
               alignment: Alignment.centerLeft,
-              height: 50,
+              height: height*5,
               color: Colors.grey,
               width: double.infinity,
               child: Row(
@@ -82,16 +88,16 @@ class _ActivityState extends State<Activity> {
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
                       DateTime.now().toString().substring(8, 10),
-                      style: const TextStyle(
-                          fontSize: 20, fontWeight: FontWeight.bold),
+                      style:TextStyle(
+                          fontSize: width*4.5, fontWeight: FontWeight.bold),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 8, bottom: 8),
                     child: Text(
                       Mon[int.parse(DateTime.now().toString().substring(5, 6))],
-                      style: const TextStyle(
-                          fontSize: 20, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          fontSize: width*4.5, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ],
@@ -105,11 +111,11 @@ class _ActivityState extends State<Activity> {
                         height: height * 80,
                         width: width * 100,
                         child: Column(
-                          children: const [
+                          children: [
                             SizedBox(
-                              height: 200,
+                              height: height*20,
                             ),
-                            Icon(
+                            const Icon(
                               Icons.calendar_today_outlined,
                               color: Colors.grey,
                               size: 120,
@@ -117,14 +123,14 @@ class _ActivityState extends State<Activity> {
                             Text(
                               "No Activities started",
                               style:
-                                  TextStyle(fontSize: 20, color: Colors.grey),
+                                  TextStyle(fontSize: width*4.5, color: Colors.grey),
                             )
                           ],
                         ),
                       )
                     : Container(
-                      height: 700,
-                      width: 427,
+                      height: height*70,
+                      width: width*100,
                       child: ListView.builder(
                           padding: EdgeInsets.zero,
                           shrinkWrap: true,
@@ -133,7 +139,7 @@ class _ActivityState extends State<Activity> {
                             return Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Container(
-                                height: 140,
+                                height: height*14,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20),
                                   color: Colors.cyan,
@@ -148,9 +154,9 @@ class _ActivityState extends State<Activity> {
                                     children: [
                                       Padding(
                                               padding: const EdgeInsets.all(14.0),
-                                              child: Text(time[index], style: TextStyle(fontSize: 20),),
+                                              child: Text(time[index], style: TextStyle(fontSize: width*4.5),),
                                             ),
-                                      const Icon(Icons.circle,color: Colors.green,size: 40,)
+                                      const Icon(Icons.circle,color: Colors.green,size: 29,)
                                     ],
                                   ),
                                       Column(
@@ -158,8 +164,8 @@ class _ActivityState extends State<Activity> {
                                           Row(
                                             children: [
                                               Container(
-                                                height: 60,
-                                                width: 250,
+                                                height: height*6,
+                                                width: width*50,
                                                 child: TextField(
                                                   controller: _controllers[index],
                                                   decoration: const InputDecoration(
@@ -174,23 +180,23 @@ class _ActivityState extends State<Activity> {
                                           ),
                                           Container(
                                             // color: Colors.green,
-                                            width: 250,
-                                            height: 50,
+                                            width: width*50,
+                                            height: height*5,
                                             child: Row(
                                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                               children: [
                                                 IconButton(onPressed: (){
 
-                                                }, icon: const Icon(Icons.message_outlined,size: 40,)),
+                                                }, icon: const Icon(Icons.message_outlined,size: 29,)),
                                                 IconButton(onPressed: (){
 
-                                                }, icon: const Icon(Icons.photo,size: 40)),
+                                                }, icon: const Icon(Icons.photo,size: 29)),
                                                 IconButton(onPressed: (){
 
-                                                }, icon: const Icon(Icons.location_on,size: 40)),
+                                                }, icon: const Icon(Icons.location_on,size: 29)),
                                                 IconButton(onPressed: (){
 
-                                                }, icon: const Icon(Icons.phone,size: 40))
+                                                }, icon: const Icon(Icons.phone,size: 29))
                                               ],
                                             ),
                                           ),

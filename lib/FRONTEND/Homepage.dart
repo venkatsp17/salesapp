@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sales/FRONTEND/Activity.dart';
+import 'package:sales/FRONTEND/Collections/Collection_Details.dart';
 import 'package:sales/FRONTEND/Collections/Collections.dart';
+import 'package:sales/FRONTEND/Customers/Customers.dart';
 import 'package:sales/FRONTEND/Orders/Orders.dart';
 import 'package:sales/main.dart';
 
@@ -27,8 +29,8 @@ class _MainscreenState extends State<Mainscreen> {
         debugShowCheckedModeBanner: false,
         routes: {
           '/analytics': (context) => const Orders(),
-          '/pricelist': (context) => const Orders(),
-          '/customerlist': (context) => const Mainscreen(),
+          '/details': (context) => const Collection_details(details: "Nil",),
+          '/customerlist': (context) => const Customers(),
           '/itemlist': (context) => const Collections(),
           '/leaveapply': (context) => const Orders(),
           '/logout': (context) => const Orders(),
@@ -161,8 +163,8 @@ class Maindrawer extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.storage_outlined),
-            title: const Text('Price List'),
-            onTap: () => {Navigator.pushNamed(context, '/pricelist')},
+            title: const Text('Details'),
+            onTap: () => {Navigator.pushNamed(context, '/details')},
           ),
           ListTile(
             leading: const Icon(Icons.storage_outlined),

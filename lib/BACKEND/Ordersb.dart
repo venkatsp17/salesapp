@@ -9,7 +9,7 @@ class Ordersb{
     http.Response response = await http.get(url2);
     // print('Status code: ${response.statusCode}');
     // print('Headers: ${response.headers}');
-    print('Body: ${response.body}');
+    // print('Body: ${response.body}');
     List? orderlist = [];
     List? resbody = jsonDecode(response.body);
     int? len = resbody?.length;

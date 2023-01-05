@@ -30,6 +30,12 @@ class _stepper1State extends State<stepper1> {
 
   @override
   Widget build(BuildContext context) {
+
+
+    var size = MediaQuery.of(context).size;
+    var height = size.height/100;
+    var width = size.width/100;
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -37,21 +43,23 @@ class _stepper1State extends State<stepper1> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const SizedBox(
-                  width: 100,
+                SizedBox(
+                  height: height*6,
+                  width: width*25,
                   child: Text(
                     "Customer ID",
                     style: TextStyle(
-                      fontSize: 20,
+                      fontSize: width*4.5,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
-                Container(
-                  height: 60,
-                  width: 240,
+                SizedBox(
+                  height: height*6,
+                  width: width*50,
                   child: TextField(
                       decoration: const InputDecoration(
                         labelText: 'Customer ID',
@@ -66,22 +74,24 @@ class _stepper1State extends State<stepper1> {
             ),
             const SizedBox(height: 20,),
             Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const SizedBox(
-                  width: 100,
+                SizedBox(
+                  height: height*6,
+                  width: width*25,
                   child: Text(
                     "Customer Type",
                     style: TextStyle(
-                        fontSize: 20,
+                        fontSize: width*4.5,
                         fontWeight: FontWeight.bold,
                         overflow: TextOverflow.ellipsis),
                     maxLines: 2,
                   ),
                 ),
-                Container(
-                  height: 60,
-                  width: 145,
+                SizedBox(
+                  height: height*6,
+                  width: width*50,
                   child: DropdownButton(
                     isExpanded: true,
                     value: selectedValue,
@@ -102,12 +112,12 @@ class _stepper1State extends State<stepper1> {
               ],
             ),
             const SizedBox(height: 20,),
-            const SizedBox(
-              width: 165,
+            SizedBox(
+              width: width*35,
               child: Text(
                 "Primary Contact",
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: width*4.5,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -116,9 +126,10 @@ class _stepper1State extends State<stepper1> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
-                  height: 60,
-                  width: 170,
+                SizedBox(
+
+                  height: height*6,
+                  width: width*41,
                   child: TextField(
                       decoration: const InputDecoration(
                         labelText: 'First Name',
@@ -129,9 +140,9 @@ class _stepper1State extends State<stepper1> {
                       controller: _firstname
                   ),
                 ),
-                Container(
-                  height: 60,
-                  width: 170,
+                SizedBox(
+                  height: height*6,
+                  width: width*41,
                   child: TextField(
                       decoration: const InputDecoration(
                         labelText: 'Last Name',
@@ -145,12 +156,12 @@ class _stepper1State extends State<stepper1> {
               ],
             ),
             const SizedBox(height: 20,),
-            const SizedBox(
-              width: 165,
+            SizedBox(
+              width: width*35,
               child: Text(
                 "Company Name",
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: width*4.5,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -160,8 +171,8 @@ class _stepper1State extends State<stepper1> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Container(
-                  height: 50,
-                  width: 250,
+                  height: height*6,
+                  width: width*60,
                   child: TextField(
                       decoration: const InputDecoration(
                         fillColor: Colors.white70,
@@ -174,12 +185,12 @@ class _stepper1State extends State<stepper1> {
               ],
             ),
             const SizedBox(height: 20,),
-            const SizedBox(
-              width: 165,
+            SizedBox(
+              width: width*37,
               child: Text(
                 "Customer Display Name",
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: width*4.5,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -188,9 +199,9 @@ class _stepper1State extends State<stepper1> {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Container(
-                  height: 50,
-                  width: 250,
+                SizedBox(
+                  height: height*6,
+                  width: width*60,
                   child: TextField(
                       decoration: const InputDecoration(
                         fillColor: Colors.white70,
@@ -203,12 +214,12 @@ class _stepper1State extends State<stepper1> {
               ],
             ),
             const SizedBox(height: 20,),
-            const SizedBox(
-              width: 165,
+            SizedBox(
+              width: width*37,
               child: Text(
                 "Customer Ph",
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize:width*4.5,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -217,9 +228,9 @@ class _stepper1State extends State<stepper1> {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Container(
-                  height: 50,
-                  width: 250,
+                SizedBox(
+                  height: height*6,
+                  width: width*60,
                   child: TextField(
                     keyboardType: TextInputType.phone,
                       decoration: const InputDecoration(
@@ -236,19 +247,19 @@ class _stepper1State extends State<stepper1> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const SizedBox(
-                  width: 100,
+                SizedBox(
+                  width: width*35,
                   child: Text(
                     "GST IN",
                     style: TextStyle(
-                      fontSize: 20,
+                      fontSize: width*4.5,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
-                Container(
-                  height: 50,
-                  width: 250,
+                SizedBox(
+                  height: height*6,
+                  width: width*47,
                   child: TextField(
                       decoration: const InputDecoration(
                         fillColor: Colors.white70,
@@ -264,20 +275,20 @@ class _stepper1State extends State<stepper1> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const SizedBox(
-                  width: 100,
+                SizedBox(
+                  width: width*37,
                   child: Text(
                     "Bank Name",
                     style: TextStyle(
-                        fontSize: 20,
+                        fontSize: width*4.5,
                         fontWeight: FontWeight.bold,
                         overflow: TextOverflow.ellipsis),
                     maxLines: 2,
                   ),
                 ),
-                Container(
-                  height: 60,
-                  width: 200,
+                SizedBox(
+                  height: height*6,
+                  width: width*40,
                   child: DropdownButton(
                     isExpanded: true,
                     value: selectedValue1,
@@ -301,19 +312,19 @@ class _stepper1State extends State<stepper1> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const SizedBox(
-                  width: 120,
+                SizedBox(
+                  width: width*35,
                   child: Text(
                     "ACCOUNT NO",
                     style: TextStyle(
-                      fontSize: 20,
+                      fontSize: width*4.5,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
-                Container(
-                  height: 50,
-                  width: 220,
+                SizedBox(
+                  height: height*6,
+                  width: width*47,
                   child: TextField(
                       decoration: const InputDecoration(
                         fillColor: Colors.white70,
@@ -329,20 +340,20 @@ class _stepper1State extends State<stepper1> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const SizedBox(
-                  width: 100,
+                SizedBox(
+                  width: width*37,
                   child: Text(
                     "IFSC CODE",
                     style: TextStyle(
-                        fontSize: 20,
+                        fontSize: width*4.5,
                         fontWeight: FontWeight.bold,
                         overflow: TextOverflow.ellipsis),
                     maxLines: 2,
                   ),
                 ),
                 Container(
-                  height: 60,
-                  width: 200,
+                  height: height*6,
+                  width: width*40,
                   child: DropdownButton(
                     isExpanded: true,
                     value: selectedValue2,
@@ -366,20 +377,20 @@ class _stepper1State extends State<stepper1> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const SizedBox(
-                  width: 100,
+                SizedBox(
+                  width: width*37,
                   child: Text(
                     "BRANCH NAME",
                     style: TextStyle(
-                        fontSize: 20,
+                        fontSize: width*4.5,
                         fontWeight: FontWeight.bold,
                         overflow: TextOverflow.ellipsis),
                     maxLines: 2,
                   ),
                 ),
-                Container(
-                  height: 60,
-                  width: 200,
+                SizedBox(
+                  height: height*6,
+                  width: width*40,
                   child: DropdownButton(
                     isExpanded: true,
                     value: selectedValue3,
@@ -403,19 +414,19 @@ class _stepper1State extends State<stepper1> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const SizedBox(
-                  width: 120,
+                SizedBox(
+                  width: width*35,
                   child: Text(
                     "PAN NO",
                     style: TextStyle(
-                      fontSize: 20,
+                      fontSize: width*4.5,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
-                Container(
-                  height: 50,
-                  width: 220,
+                SizedBox(
+                  height: height*6,
+                  width: width*47,
                   child: TextField(
                       decoration: const InputDecoration(
                         fillColor: Colors.white70,

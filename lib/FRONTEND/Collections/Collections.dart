@@ -41,12 +41,17 @@ class _CollectionsState extends State<Collections> {
      return date2.difference(e).inDays;
     }
   List result = [];
-  String dropdownvalue = "60";
+  String dropdownvalue = "30";
   List<String> items1 = ["15","30","45","60"];
 
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+    var height = size.height/100;
+    var width = size.width/100;
+
+
     return Scaffold(
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(right: 30,bottom: 30),
@@ -63,74 +68,76 @@ class _CollectionsState extends State<Collections> {
         ),
       ),
       backgroundColor:  const Color(0xffA09191),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              margin: EdgeInsets.only(top: 10),
-              child: Column(
-                children: [
-                Container(
-                color: Colors.white,
-                height: 80,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text("More than",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 25,
-                            fontWeight: FontWeight.bold
-                        ),
+      body: Column(
+        children: [
+          Container(
+            margin: const EdgeInsets.only(top: 10),
+            child: Column(
+              children: [
+              Container(
+              color: Colors.white,
+              height: height*10,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("More than",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: width*6,
+                          fontWeight: FontWeight.bold
                       ),
-                      DropdownButton(
-                        value: dropdownvalue,
-                        // icon: const Icon(Icons.keyboard_arrow_down),
-                        items: items1.map((String item) {
-                          return DropdownMenuItem(
-                            value: item,
-                            child: Text(item,style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
-                          );
-                        }).toList(),
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            dropdownvalue = newValue!;
-                          });
-                        },
+                    ),
+                    DropdownButton(
+                      value: dropdownvalue,
+                      // icon: const Icon(Icons.keyboard_arrow_down),
+                      items: items1.map((String item) {
+                        return DropdownMenuItem(
+                          value: item,
+                          child: Text(item,style: TextStyle(fontSize: width*4.5,fontWeight: FontWeight.bold),),
+                        );
+                      }).toList(),
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          dropdownvalue = newValue!;
+                        });
+                      },
+                    ),
+                    Text("Days",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: width*6,
+                          fontWeight: FontWeight.bold
                       ),
-                      const Text("Days",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 25,
-                            fontWeight: FontWeight.bold
-                        ),
-                      ),
-                      const Icon(Icons.circle,color: Colors.green,size: 30,)
-                    ],
-                  ),
+                    ),
+                    const Icon(Icons.circle,color: Colors.green,size: 30,)
+                  ],
                 ),
               ),
-                  CList(context, result, Color(0xffB6E2D3), Colors.green),
-                ],
-              ),
             ),
-          ],
-        ),
+                CList(context, result, const Color(0xffB6E2D3), Colors.green),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
 
 
   Widget CList(BuildContext context, cdata, Color color,  Color color1){
+
+    var size = MediaQuery.of(context).size;
+    var height = size.height/100;
+    var width = size.width/100;
+
     return  Container(
-      color: color,
-      height: 650,
+      height: height*69,
       child: ListView.builder(
           itemCount: cdata.length,
           itemBuilder: (BuildContext context, int index){
-            return int.parse(nod(cdata[index]['orderdates'][0].toString()))==int.parse(dropdownvalue)?GestureDetector(
+            return nod(cdata[index]['orderdates'][0].toString())>=int.parse(dropdownvalue)?GestureDetector(
               onTap: (){
                 Navigator.push(
                     context,
@@ -140,7 +147,7 @@ class _CollectionsState extends State<Collections> {
               child: Padding(
                 padding: const EdgeInsets.only(top: 0.5),
                 child: Container(
-                  height: 100,
+                  height: height*15,
                   decoration: BoxDecoration(
                     border: Border.all(),
                     color: Colors.white70,
@@ -151,34 +158,34 @@ class _CollectionsState extends State<Collections> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                      children: [
                        Container(
-                         width: 190,
+                         width: width*30,
                          alignment: Alignment.center,
                          child: Text(cdata[index]['companyname'].toString(),
-                           style: const TextStyle(
+                           style: TextStyle(
                                color: Colors.black,
-                               fontSize: 20,
+                               fontSize: width*4.5,
                                fontWeight: FontWeight.bold
                            ),
                          ),
                        ),
                        Container(
-                         alignment: Alignment.center,
-                         width: 80,
+                         alignment: Alignment.centerRight,
+                         width: width*20,
                          child: Text(nod(cdata[index]['orderdates'][0].toString()).toString(),
-                           style: const TextStyle(
+                           style: TextStyle(
                                color: Colors.black,
-                               fontSize: 20,
+                               fontSize: width*4.5,
                                fontWeight: FontWeight.bold
                            ),
                          ),
                        ),
                        Container(
-                         width: 130,
-                         alignment: Alignment.center,
+                         width: width*45,
+                         alignment: Alignment.centerRight,
                          child: Text('Rs.${cdata[index]['openingbalance']}',
-                           style: const TextStyle(
+                           style: TextStyle(
                                color: Colors.black,
-                               fontSize: 20,
+                               fontSize: width*4.5,
                                fontWeight: FontWeight.bold
                            ),
                          ),
@@ -188,7 +195,7 @@ class _CollectionsState extends State<Collections> {
                   ),
                 ),
               ),
-            ):const Text("No data available in the range");
+            ):Container();
           }
       ),
     );

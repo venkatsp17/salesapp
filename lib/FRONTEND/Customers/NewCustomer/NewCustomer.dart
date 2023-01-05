@@ -24,15 +24,20 @@ class _NewcustomerState extends State<Newcustomer> {
 
   @override
   Widget build(BuildContext context) {
+
+    var size = MediaQuery.of(context).size;
+    var height = size.height/100;
+    var width = size.width/100;
+
     return Scaffold(
       appBar: AppBar(
         iconTheme: const IconThemeData(color: Colors.black),
         backgroundColor: Colors.white,
         centerTitle: false,
-        title: const Text(
+        title: Text(
           "New Customer",
           style: TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 20, color: Colors.black),
+              fontWeight: FontWeight.bold, fontSize: width*4.5, color: Colors.black),
         ),
       ),
       body: Theme(
@@ -71,7 +76,7 @@ class _NewcustomerState extends State<Newcustomer> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     SizedBox(
-                      width: 150,
+                      width: 145,
                       height: 40,
                       child: ElevatedButton(
                         style: ButtonStyle(
@@ -91,7 +96,7 @@ class _NewcustomerState extends State<Newcustomer> {
                       ),
                     ),
                     SizedBox(
-                      width: 150,
+                      width: 145,
                       height: 40,
                       child: ElevatedButton(
                         style: ButtonStyle(

@@ -50,6 +50,12 @@ class _OrdersState extends State<Orders> {
 
   @override
   Widget build(BuildContext context) {
+
+
+    var size = MediaQuery.of(context).size;
+    var height = size.height/100;
+    var width = size.width/100;
+
     return Scaffold(
       floatingActionButton: PopupMenuButton<int>(
         itemBuilder: (context1) => [
@@ -88,26 +94,26 @@ class _OrdersState extends State<Orders> {
                 child: Column(
           children: [
             Container(
-              margin: EdgeInsets.only(top: 10),
+              margin: const EdgeInsets.only(top: 10),
               child: Column(
                 children: [
                   ExpandablePanel(
                     header: Container(
                       color: Colors.white,
-                      height: 80,
+                      height: height*8,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: const [
+                          children: [
                               Text("Delivery",
                                 style: TextStyle(
                                   color: Colors.black,
-                                  fontSize: 25,
+                                  fontSize: width*5,
                                   fontWeight: FontWeight.bold
                                 ),
                               ),
-                            Icon(Icons.circle,color: Colors.green,size: 30,)
+                            const Icon(Icons.circle,color: Colors.green,size: 30,)
                           ],
                         ),
                       ),
@@ -123,20 +129,20 @@ class _OrdersState extends State<Orders> {
                   ExpandablePanel(
                     header: Container(
                       color: Colors.white,
-                      height: 80,
+                      height: height*8,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: const [
+                          children: [
                             Text("Approved",
                               style: TextStyle(
                                   color: Colors.black,
-                                  fontSize: 25,
+                                  fontSize: width*5,
                                   fontWeight: FontWeight.bold
                               ),
                             ),
-                            Icon(Icons.circle,color: Colors.orange,size: 30,)
+                            const Icon(Icons.circle,color: Colors.orange,size: 30,)
                           ],
                         ),
                       ),
@@ -152,20 +158,20 @@ class _OrdersState extends State<Orders> {
                   ExpandablePanel(
                     header: Container(
                       color: Colors.white,
-                      height: 80,
+                      height: height*8,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: const [
+                          children: [
                             Text("Pending",
                               style: TextStyle(
                                   color: Colors.black,
-                                  fontSize: 25,
+                                  fontSize: width*5,
                                   fontWeight: FontWeight.bold
                               ),
                             ),
-                            Icon(Icons.circle,color: Colors.red,size: 30,)
+                            const Icon(Icons.circle,color: Colors.red,size: 30,)
                           ],
                         ),
                       ),
@@ -175,7 +181,7 @@ class _OrdersState extends State<Orders> {
                       softWrap: true,
                       maxLines: 1,
                     ),
-                    expanded: (data2.isEmpty)?const Text("No Data"):CList(context, data2, Color(0xffF36870),Colors.red),
+                    expanded: (data2.isEmpty)?const Text("No Data"):CList(context, data2, const Color(0xffF36870),Colors.red),
                     theme: const ExpandableThemeData(hasIcon: false),
                   ),
                 ],
@@ -188,9 +194,14 @@ class _OrdersState extends State<Orders> {
   }
 
   Widget CList(BuildContext context, cdata, Color color,  Color color1){
+
+    var size = MediaQuery.of(context).size;
+    var height = size.height/100;
+    var width = size.width/100;
+
     return  Container(
       color: color,
-      height: 400,
+      height: height*40,
       child: ListView.builder(
           itemCount: cdata.length,
           itemBuilder: (BuildContext context, int index){
@@ -206,7 +217,7 @@ class _OrdersState extends State<Orders> {
               child: Padding(
                 padding: const EdgeInsets.only(top: 0.5),
                 child: Container(
-                  height: 100,
+                  height: height*10,
                   decoration: BoxDecoration(
                     border: Border.all(),
                     color: Colors.white70,
@@ -222,45 +233,45 @@ class _OrdersState extends State<Orders> {
                           children: [
                             Row(
                               children: [
-                                const Text("Customer Name: ",
+                             Text("Customer Name: ",
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 16,
+                                    fontSize: width*3.5,
                                   ),
                                 ),
                                 Text(cdata[index]["customername"],
-                                  style: const TextStyle(
-                                    fontSize: 16,
+                                  style: TextStyle(
+                                    fontSize:  width*3.5,
                                   ),
                                 ),
                               ],
                             ),
                             Row(
                               children: [
-                                const Text("Order ID: ",
+                               Text("Order ID: ",
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 16,
+                                    fontSize:  width*3.5,
                                   ),
                                 ),
                                 Text(cdata[index]["orderid"],
-                                  style: const TextStyle(
-                                    fontSize: 16,
+                                  style: TextStyle(
+                                    fontSize:  width*3.5,
                                   ),
                                 ),
                               ],
                             ),
                             Row(
                               children: [
-                                const Text("Order Date: ",
+                               Text("Order Date: ",
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 16,
+                                    fontSize:  width*3.5,
                                   ),
                                 ),
                                 Text(cdata[index]["date"],
-                                  style: const TextStyle(
-                                    fontSize: 16,
+                                  style:  TextStyle(
+                                    fontSize:  width*3.5,
                                   ),
                                 ),
                               ],
@@ -268,14 +279,14 @@ class _OrdersState extends State<Orders> {
                           ],
                         ),
                         Container(
-                          width: 120,
-                          height: 50,
+                          width: width*35,
+                          height: height*5,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Text("Status",
+                              Text("Status",
                                 style: TextStyle(
-                                    fontSize: 16,
+                                    fontSize:  width*3.5,
                                     fontWeight: FontWeight.bold
                                 ),
                               ),
@@ -285,12 +296,12 @@ class _OrdersState extends State<Orders> {
                                   borderRadius: BorderRadius.circular(20)
                                 ),
                                 alignment: Alignment.center,
-                                width: 130,
+                                width: width*25,
                                 child: Text(cdata[index]['status'],
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: color1,
-                                    fontSize: 15,
+                                    fontSize:  width*3.5,
                                   ),),
                               )
                             ],

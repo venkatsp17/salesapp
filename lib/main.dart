@@ -43,24 +43,22 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       body: Container(
         width: double.infinity,
-        color: Color(0xffA09191),
+        color: const Color(0xffA09191),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              height: 200,
-              width: 200,
-              color: Color(0xffA09191),
-              child: Container(
-                child: Image.asset('assets/1.png'),
-              ),
+              height: height*40,
+              width: width*40,
+              color: const Color(0xffA09191),
+              child: Image.asset('assets/1.png'),
             ),
             // const Text(
             //   "Login",
             //   style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
             // ),
-            const SizedBox(
-              height: 80,
+           SizedBox(
+              height: height*8,
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -75,12 +73,13 @@ class _MyHomePageState extends State<MyHomePage> {
                             bottomLeft: Radius.circular(10))),
                     width: width * 15,
                     height: height * 6,
-                    child: const Icon(
+                    child: Icon(
                       Icons.mail,
-                      size: 50,
+                      size: width*5,
                     ),
                   ),
                   SizedBox(
+                    height: height*6,
                     width: width*70,
                     child: TextField(
                       controller: email,
@@ -108,12 +107,13 @@ class _MyHomePageState extends State<MyHomePage> {
                             bottomLeft: Radius.circular(10))),
                     width: width * 15,
                     height: height * 6,
-                    child: const Icon(
+                    child: Icon(
                       Icons.key,
-                      size: 50,
+                      size: width*5,
                     ),
                   ),
                   SizedBox(
+                    height: height*6,
                     width: width * 70,
                     child: TextField(
                       controller: password,
@@ -144,12 +144,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 ],
               ),
             ),
-            const SizedBox(
-              height: 35,
+            SizedBox(
+              height: height*3.5,
             ),
             SizedBox(
-              width: 300,
-              height: 50,
+              width: width*50,
+              height: height*5,
               child: ElevatedButton(
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all<Color>(
@@ -169,10 +169,10 @@ class _MyHomePageState extends State<MyHomePage> {
                           const Mainscreen()),
                     );
                   },
-                  child: const Text(
+                  child: Text(
                     "LOGIN",
                     style: TextStyle(
-                      fontSize: 30,
+                      fontSize: width*6,
                       fontWeight: FontWeight.bold
                     ),
                   )

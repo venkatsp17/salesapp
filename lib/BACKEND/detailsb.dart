@@ -6,27 +6,33 @@ import 'package:http/http.dart' as http;
 class Customer{
   final String name;
   final String address;
+  final String id;
 
   const Customer({
     required this.name,
-    required this.address
+    required this.address,
+    required this.id
   });
 
   static Customer fromJson(Map<String,dynamic> data) => Customer(
       name: data['companyname'],
-      address: data['address']
+      address: data['address'],
+      id: data['customerid'],
   );
 
 }
 
 class Detailsb{
+  //http://127.0.0.1:8000/
+  //http://10.0.2.2:8000/
+  var u = "http://127.0.0.1:8000/";
 
   Future makeGetRequest() async {
-    final url2 = Uri.parse("http://127.0.0.1:8000/api/collection/");
+    final url2 = Uri.parse("${u}api/collection/");
     http.Response response = await http.get(url2);
     // print('Status code: ${response.statusCode}');
     // print('Headers: ${response.headers}');
-    print('Body: ${response.body}');
+    // print('Body: ${response.body}');
     List? collectionlist = [];
     List? resbody = jsonDecode(response.body);
     int? len = resbody?.length;
@@ -42,14 +48,14 @@ class Detailsb{
     }
   }
   Future makeGetRequest1(String id) async {
-    final url2 = Uri.parse("http://127.0.0.1:8000/api/details/$id");
-    final url3 = Uri.parse("http://127.0.0.1:8000/api/details1/$id");
+    final url2 = Uri.parse("${u}api/details/$id");
+    final url3 = Uri.parse("${u}api/details1/$id");
     http.Response response = await http.get(url2);
     http.Response response1 = await http.get(url3);
     // print('Status code: ${response.statusCode}');
     // print('Headers: ${response.headers}');
-    print('Body: ${response.body}');
-    print('Body1: ${response1.body}');
+    // print('Body: ${response.body}');
+    // print('Body1: ${response1.body}');
     List? orderlist = [];
     List? paymentlist = [];
     List? resbody = jsonDecode(response.body);
@@ -72,22 +78,31 @@ class Detailsb{
   }
 
   Future getcustomers(String query) async {
-    final url2 = Uri.parse("http://127.0.0.1:8000/api/customers/");
+    final url2 = Uri.parse("${u}api/customers/");
     http.Response response = await http.get(url2);
-    print('Body: ${response.body}');
+    // print('Body: ${response.body}');
     List? resbody = jsonDecode(response.body);
-    if(response.statusCode==200) {
-      return resbody?.map((data) => Customer.fromJson(data)).where((element) {
-          final namelower = element.name.toLowerCase();
-          final  querylower = query.toLowerCase();
-
-          return namelower.contains(querylower);
-      }).toList();
+    if (query=="Null"){
+      if(response.statusCode==200){
+        return resbody;
+      }
+      else{
+        print("Unable to retrieve data");
+        return null;
+      }
     }
     else{
-      print("Unable to retrieve data");
-      return null;
+      if(response.statusCode==200) {
+        return resbody?.map((data) => Customer.fromJson(data)).where((element) {
+          final namelower = element.name.toLowerCase();
+          final  querylower = query.toLowerCase();
+          return namelower.contains(querylower);
+        }).toList();
+      }
+      else{
+        print("Unable to retrieve data");
+        return null;
+      }
     }
   }
-
 }
