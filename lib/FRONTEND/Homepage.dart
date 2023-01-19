@@ -3,6 +3,7 @@ import 'package:sales/FRONTEND/Activity.dart';
 import 'package:sales/FRONTEND/Collections/Collection_Details.dart';
 import 'package:sales/FRONTEND/Collections/Collections.dart';
 import 'package:sales/FRONTEND/Customers/Customers.dart';
+import 'package:sales/FRONTEND/Expenses/Expenses.dart';
 import 'package:sales/FRONTEND/Orders/Orders.dart';
 import 'package:sales/main.dart';
 
@@ -89,7 +90,7 @@ class _MainscreenState extends State<Mainscreen> {
               children: [
                 Orders(),
                 Collections(),
-                Orders(),
+                Expenses(),
               ],
             ),
             // bottomNavigationBar: BottomNavigationBar(

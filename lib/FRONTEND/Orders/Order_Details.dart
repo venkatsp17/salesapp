@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Orderdetails extends StatefulWidget {
@@ -74,121 +75,182 @@ class _OrderdetailsState extends State<Orderdetails> {
                     color: Colors.black),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 15.0, bottom: 15.0),
-              child: Container(
-                color: Colors.blueGrey,
-                width: double.infinity,
-                height: height*4,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "NAME",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: width*4.5,
-                          color: Colors.black),
-                    ),
-                    Text(
-                      "KG",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: width*4.5,
-                          color: Colors.black),
-                    ),
-                    Text(
-                      "QTY",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: width*4.5,
-                          color: Colors.black),
-                    ),
-                    Text(
-                      "RATE",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: width*4.5,
-                          color: Colors.black),
-                    ),
-                    Text(
-                      "AMOUNT",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: width*4.5,
-                          color: Colors.black),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+
             Padding(
               padding: const EdgeInsets.all(5.0),
               child: Container(
-                height: height*20,
+                height: height*60,
                 width: double.infinity,
-                child: ListView.builder(
-                    itemCount: widget.data['productnames'].length,
-                    itemBuilder: (BuildContext context, int index) {
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SizedBox(
-                        width: width*15,
-                        child: Text(
-                          widget.data['productnames'][index],
-                          style: TextStyle(
-                              fontSize: width*4.5,
-                              fontWeight: FontWeight.bold,
-                              ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: width*12,
-                        child: Text(
-                          '100',
-                          style: TextStyle(
-                            fontSize: width*4.5,
-                            fontWeight: FontWeight.bold,
+                child: CupertinoScrollbar(
+                  child: ListView.builder(
+                    // physics: const NeverScrollableScrollPhysics(),
+                      itemCount: widget.data['products'].length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(),
                           ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: width*12,
-                        child: Text(
-                          widget.data['productqty'][index],
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: width*4.5,
-                              fontWeight: FontWeight.bold,
+                          // color: Colors.green,
+                          height: height*35,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment:
+                              MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text("Item ${index+1}",style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: width*4.5,
+                                    color: Colors.black
+                                ),),
+                                Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Text("Product Name: ",style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: width*3.5,
+                                            color: Colors.black
+                                        ),),
+                                        Text(widget.data['products'][index]['itemname'],style: TextStyle(
+                                            fontSize: width*3.5,
+                                            color: Colors.black
+                                        ),),
+                                      ],
+                                    ),
+
+                                    SizedBox(
+                                      height: height*4,
+                                      width: width*22,
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text("Discount: ",style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: width*3.5,
+                                              color: Colors.black
+                                          ),),
+                                          Text(widget.data['products'][index]['discount'],style: TextStyle(
+                                              fontSize: width*3.5,
+                                              color: Colors.black
+                                          ),),
+                                        ],
+                                      )
+                                    ),
+                                  ],
+                                ),
+                                Container(
+                                  color: Colors.blueGrey,
+                                  height: height*2,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "KG",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: width*3,
+                                            color: Colors.black),
+                                      ),
+                                      Text(
+                                        "QTY",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: width*3,
+                                            color: Colors.black),
+                                      ),
+                                      Text(
+                                        "RATE",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: width*3,
+                                            color: Colors.black),
+                                      ),
+                                      Text(
+                                        "AMOUNT",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: width*3,
+                                            color: Colors.black),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: height*20,
+                                  child: ListView.builder(
+                                      itemCount: widget.data['products'][index]['details'].length,
+                                      itemBuilder: (BuildContext context, int index1){
+                                        return Padding(
+                                            padding: const EdgeInsets.all(1.0),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                SizedBox(
+                                                  height: height*5.8,
+                                                  width: width*25,
+                                                  child: Text(widget.data['products'][index]['details'][index1]['KG'].toString())
+                                                ),
+                                                SizedBox(
+                                                  height: height*5,
+                                                  width: width*20,
+                                                  child: Text(widget.data['products'][index]['details'][index1]['qty'].toString())
+                                                ),
+                                                SizedBox(
+                                                  height: height*5,
+                                                  width: width*20,
+                                                  child: Text(widget.data['products'][index]['details'][index1]['rate'].toString())
+                                                ),
+                                                SizedBox(
+                                                  height: height*5,
+                                                  width: width*20,
+                                                  child: Text(widget.data['products'][index]['details'][index1]['amount'].toString())
+                                                ),
+                                              ],
+                                            ),
+                                        );
+                                      }
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: Container(
+                                    height: height*3,
+                                    color: Colors.grey,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            "SUB TOTAL",
+                                            style: TextStyle(
+                                              fontSize: width*3,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          Text(
+                                            widget.data['products'][index]['stotal'].toString(),
+                                            style: TextStyle(
+                                              fontSize: width*3,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: width*12,
-                        child: Text(
-                          widget.data['productrate'][index],
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: width*4.5,
-                              fontWeight: FontWeight.bold,
-                           ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: width*14,
-                        child: Text(
-                          widget.data['productamt'][index],
-                          textAlign: TextAlign.center,
-                          style:TextStyle(
-                              fontSize: width*4.5,
-                              fontWeight: FontWeight.bold,
-                             ),
-                        ),
-                      ),
-                    ],
-                  );
-                }),
+                        );
+                      }),
+                ),
               ),
             ),
             Container(

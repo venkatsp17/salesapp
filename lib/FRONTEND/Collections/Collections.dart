@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-// import 'package:sales/BACKEND/Ordersb.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:sales/BACKEND/detailsb.dart';
 import 'package:sales/FRONTEND/Collections/Collection_Details.dart';
 import 'package:sales/FRONTEND/Collections/NewCollection.dart';
@@ -68,7 +68,9 @@ class _CollectionsState extends State<Collections> {
         ),
       ),
       backgroundColor:  const Color(0xffA09191),
-      body: Column(
+      body: result.isEmpty?Center(
+        child: LoadingAnimationWidget.hexagonDots(color: Colors.black, size: 50),
+      ):Column(
         children: [
           Container(
             margin: const EdgeInsets.only(top: 10),
@@ -132,8 +134,8 @@ class _CollectionsState extends State<Collections> {
     var height = size.height/100;
     var width = size.width/100;
 
-    return  Container(
-      height: height*69,
+    return  SizedBox(
+      height: height*68,
       child: ListView.builder(
           itemCount: cdata.length,
           itemBuilder: (BuildContext context, int index){

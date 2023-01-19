@@ -24,4 +24,29 @@ class Ordersb{
       return null;
     }
   }
+
+  Future createorder(String cid, String oid, String cname,
+      String date, String delm, String totalamt,
+      String discountamt, String remarks, String deldate, List pdetails) async{
+    final url2 = Uri.parse("http://127.0.0.1:8000/api/createorder/");
+    return http.post(
+      url2,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode({
+        'customerid': cid,
+        'customername': cname,
+        'date': date,
+        'deliveryddate': deldate,
+        'delivery': delm,
+        'orderid': oid,
+        'products': pdetails,
+        'total': totalamt,
+        'status': 'Pending',
+        'remarks': remarks,
+        'delivereddate': '',
+      }),
+    );
+  }
 }

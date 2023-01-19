@@ -58,7 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
             //   style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
             // ),
            SizedBox(
-              height: height*8,
+              height: height*6,
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -75,7 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     height: height * 6,
                     child: Icon(
                       Icons.mail,
-                      size: width*5,
+                      size: width*7,
                     ),
                   ),
                   SizedBox(
@@ -109,7 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     height: height * 6,
                     child: Icon(
                       Icons.key,
-                      size: width*5,
+                      size: width*7,
                     ),
                   ),
                   SizedBox(

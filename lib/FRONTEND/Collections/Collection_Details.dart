@@ -502,7 +502,7 @@ class _Collection_detailsState extends State<Collection_details> {
                                       color: Colors.black),
                                 ),
                                 Text(
-                                  total(cdata[index]["productamt"]),
+                                  cdata[index]["total"],
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: width*4.5,

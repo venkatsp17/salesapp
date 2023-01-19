@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
+
+import '../../BACKEND/detailsb.dart';
 
 
 class Newcollec extends StatefulWidget {
@@ -18,8 +21,28 @@ class _NewcollecState extends State<Newcollec> {
   final TextEditingController _pid = TextEditingController();
   final TextEditingController _remarks = TextEditingController();
 
+  final Detailsb obj = Detailsb();
+  String customerid = '';
   List<String> items1 = ['Cash', 'Cheque', 'Online Payment', 'UPI'];
   String? dropdownvalue1 = "Cash";
+
+  Validation(TextEditingController c, String v){
+    if(v=='')v='*';
+    if(c.value.text.isEmpty){
+      return v;
+    }
+    else{
+      return null;
+    }
+  }
+  bool checkall(){
+    if (_companyname.value.text.isEmpty || _pid.value.text.isEmpty || _amt.value.text.isEmpty) {
+      return false;
+    }
+    else {
+      return true;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,18 +86,35 @@ class _NewcollecState extends State<Newcollec> {
                         maxLines: 2,
                       ),
                     ),
-                    SizedBox(
-                      width: width*65,
-                      height: height*6,
-                      child: TextField(
-                        controller: _companyname,
-                        decoration: const InputDecoration(
-                          fillColor: Colors.white70,
-                          filled: true,
-                          border: OutlineInputBorder(),
-                          labelText: 'Company Name',
-                        ),
-                      ),
+                    Container(
+                        height: height*6,
+                        width: width*65,
+                        child: TypeAheadField<Customer?>(
+                          textFieldConfiguration: TextFieldConfiguration(
+                            decoration: InputDecoration(
+                                errorText: Validation(_companyname, 'Select the customer!'),
+                                border: const OutlineInputBorder()),
+                            controller: _companyname,
+                          ),
+                          suggestionsCallback: (pattern) async {
+                            return await obj.getcustomers(pattern);
+                          },
+                          itemBuilder: (context, Customer? suggestion) {
+                            final customer = suggestion!;
+                            return ListTile(
+                              leading: Text(customer.id),
+                              title: Text(customer.name),
+                              subtitle: Text(customer.address),
+                            );
+                          },
+                          onSuggestionSelected: (Customer? suggestion) {
+                            final customer = suggestion!;
+                            setState(() {
+                              customerid = customer.id;
+                              _companyname.text = customer.name;
+                            });
+                          },
+                        )
                     ),
                   ],
                 ),
@@ -102,10 +142,11 @@ class _NewcollecState extends State<Newcollec> {
                       height: height*6,
                       child: TextField(
                         controller: _amt,
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
+                          errorText: Validation(_amt, 'Enter the amount!'),
                           fillColor: Colors.white70,
                           filled: true,
-                          border: OutlineInputBorder(),
+                          border: const OutlineInputBorder(),
                           labelText: 'Amount',
                         ),
                       ),
@@ -238,7 +279,8 @@ class _NewcollecState extends State<Newcollec> {
                       height: height*6,
                       child: TextField(
                         controller: _pid,
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
+                          errorText: Validation(_pid, ''),
                           fillColor: Colors.white70,
                           filled: true,
                           border: OutlineInputBorder(),
@@ -290,6 +332,37 @@ class _NewcollecState extends State<Newcollec> {
                     ),
                   ),
                 ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: width*65,
+                    height: height*5,
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                              Colors.orange
+                          ),
+                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10)
+                              )
+                          )
+                      ),
+                      onPressed: () {
+                        if(checkall()){
+
+                        }
+                        else{
+                          print("Error");
+                        }
+
+                      },
+                      child: Text("Add collection", style: TextStyle(fontWeight: FontWeight.bold,fontSize: width*4.5),),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
