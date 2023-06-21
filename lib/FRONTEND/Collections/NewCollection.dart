@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:sales/BACKEND/Collectionsb.dart';
 
 import '../../BACKEND/detailsb.dart';
 
@@ -16,15 +19,19 @@ class Newcollec extends StatefulWidget {
 class _NewcollecState extends State<Newcollec> {
 
 
+
+
   final TextEditingController _companyname = TextEditingController();
   final TextEditingController _amt = TextEditingController();
   final TextEditingController _pid = TextEditingController();
   final TextEditingController _remarks = TextEditingController();
 
   final Detailsb obj = Detailsb();
+  final Collectionsb obb = Collectionsb();
   String customerid = '';
   List<String> items1 = ['Cash', 'Cheque', 'Online Payment', 'UPI'];
   String? dropdownvalue1 = "Cash";
+  String result = "";
 
   Validation(TextEditingController c, String v){
     if(v=='')v='*';
@@ -350,9 +357,20 @@ class _NewcollecState extends State<Newcollec> {
                               )
                           )
                       ),
-                      onPressed: () {
+                      onPressed: () async{
                         if(checkall()){
-
+                            dynamic res = await obb.createcollection(_amt.text, _companyname.text, customerid,  _chosenDateTime.toString().substring(0, 10), _pid.text, dropdownvalue1!, _remarks.text);
+                            setState(() {
+                              result = res;
+                            });
+                            if(result=="200"){
+                              var snackBar = const SnackBar(content: Text('Collection Added'));
+                              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                            }
+                            else{
+                              var snackBar = const SnackBar(content: Text('Error'));
+                              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                            }
                         }
                         else{
                           print("Error");

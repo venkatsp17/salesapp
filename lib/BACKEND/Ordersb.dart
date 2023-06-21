@@ -29,7 +29,7 @@ class Ordersb{
       String date, String delm, String totalamt,
       String discountamt, String remarks, String deldate, List pdetails) async{
     final url2 = Uri.parse("http://127.0.0.1:8000/api/createorder/");
-    return http.post(
+    http.Response response = await http.post(
       url2,
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
@@ -48,5 +48,7 @@ class Ordersb{
         'delivereddate': '',
       }),
     );
+    String status= response.statusCode.toString();
+    return status;
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'my-globals.dart' as globals;
 
 
 class stepper3 extends StatefulWidget {
@@ -62,6 +62,11 @@ class _stepper3State extends State<stepper3> {
                 height: height*6,
                 width: width*48,
                 child: TextField(
+                  onEditingComplete: (){
+                    setState(() {
+                      globals.opb = _openbal.text;
+                    });
+                  },
                   decoration: const InputDecoration(
                     fillColor: Colors.white70,
                     filled: true,
@@ -102,6 +107,7 @@ class _stepper3State extends State<stepper3> {
                 onChanged: (String? newValue) {
                   setState(() {
                     selectedValue = newValue!;
+                    globals.pterms = selectedValue;
                   });
                 },
               ),
@@ -139,6 +145,11 @@ class _stepper3State extends State<stepper3> {
                 width: width*50,
                 height: height*6,
                 child: TextField(
+                  onEditingComplete: (){
+                    setState(() {
+                      globals.name = _name.text;
+                    });
+                  },
                   decoration: const InputDecoration(
                     fillColor: Colors.white70,
                     filled: true,
@@ -169,6 +180,11 @@ class _stepper3State extends State<stepper3> {
                 height: height*6,
                 width: width*50,
                 child: TextField(
+                  onEditingComplete: (){
+                    setState(() {
+                      globals.mobno = _phno.text;
+                    });
+                  },
                   decoration: const InputDecoration(
                     fillColor: Colors.white70,
                     filled: true,

@@ -20,6 +20,7 @@ class Neworder extends StatefulWidget {
 class _NeworderState extends State<Neworder> {
   double h = 1.0;
   int count = 1;
+  String result = "";
   final Detailsb obj = Detailsb();
   final Productsb ob = Productsb();
   final Ordersb obb = Ordersb();
@@ -1006,13 +1007,24 @@ class _NeworderState extends State<Neworder> {
                               )
                           )
                       ),
-                        onPressed: () {
+                        onPressed: () async{
                                 if(checkall()){
-                                  print("Order created");
-                                  print(details());
-                                  print(obb.createorder(customerid, _orderid.text, _cmpname.text, DateTime.now().toString().substring(0, 10), dropdownvalue1!, grandtotal(), (total-dtotal).toString(), _remarks.text, _chosenDateTime.toString().substring(0, 10), details()));
+                                  dynamic res = await obb.createorder(customerid, _orderid.text, _cmpname.text, DateTime.now().toString().substring(0, 10), dropdownvalue1!, grandtotal(), (total-dtotal).toString(), _remarks.text, _chosenDateTime.toString().substring(0, 10), details());
+                                  setState(() {
+                                    result = res;
+                                  });
+                                  if(result=="200"){
+                                    var snackBar = const SnackBar(content: Text('Order Created'));
+                                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                  }
+                                  else{
+                                    var snackBar = const SnackBar(content: Text('Error'));
+                                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                  }
                                 }
                                 else{
+                                  var snackBar = const SnackBar(content: Text('Error'));
+                                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
                                   print("Error");
                                 }
 

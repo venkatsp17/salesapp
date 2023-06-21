@@ -91,6 +91,7 @@ class _Collection_detailsState extends State<Collection_details> {
     }
   }
 
+
   final TextEditingController _cmpname = TextEditingController();
   final TextEditingController _customerdisname = TextEditingController();
   final TextEditingController _customerph = TextEditingController();

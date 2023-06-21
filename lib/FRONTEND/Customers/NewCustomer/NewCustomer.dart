@@ -1,25 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:sales/BACKEND/Customersb.dart';
 import 'package:sales/FRONTEND/Customers/NewCustomer/stepper1.dart';
 import 'package:sales/FRONTEND/Customers/NewCustomer/stepper2.dart';
 import 'package:sales/FRONTEND/Customers/NewCustomer/stepper3.dart';
 import 'package:sales/FRONTEND/Orders/NewOrder.dart';
+import 'my-globals.dart' as globals;
 
 class Newcustomer extends StatefulWidget {
   const Newcustomer({Key? key}) : super(key: key);
 
   @override
   State<Newcustomer> createState() => _NewcustomerState();
+
 }
 
 class _NewcustomerState extends State<Newcustomer> {
 
 
+  final Customersb obb = Customersb();
   int currentstep = 0;
   List<Step> getSteps()=>[
     Step(state:currentstep>0?StepState.complete:StepState.indexed,isActive:currentstep>=0,title: Text('STEP - 1'), content: stepper1()),
     Step(state:currentstep>1?StepState.complete:StepState.indexed,isActive:currentstep>=1,title: Text('STEP - 2'), content: stepper2()),
     Step(state:currentstep>2?StepState.complete:StepState.indexed,isActive:currentstep>=2,title: Text('STEP - 3'), content: stepper3()),
   ];
+  String result ="";
+
 
 
   @override
@@ -89,8 +95,19 @@ class _NewcustomerState extends State<Newcustomer> {
                                 )
                             )
                         ),
-                        onPressed: (){
-
+                        onPressed: ()async{
+                          dynamic res = await obb.createcustomer(globals.id, globals.type, globals.pc, globals.cmpname, globals.cdname, globals.cph, globals.gst, globals.bname, globals.accno, globals.ifsc, globals.brname, globals.pan, globals.add, globals.country, globals.state, globals.city, globals.pin, globals.opb, globals.pterms, globals.name, globals.mobno);
+                          setState(() {
+                            result = res;
+                          });
+                          if(result=="200"){
+                            var snackBar = const SnackBar(content: Text('Customer Created'));
+                            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                          }
+                          else{
+                            var snackBar = const SnackBar(content: Text('Error'));
+                            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                          }
                         },
                         child: const Text("Save", style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
                       ),

@@ -1,0 +1,23 @@
+library globals;
+
+String id="";
+String type="";
+String pc="";
+String cmpname="";
+String cdname="";
+String cph="";
+String gst="";
+String bname="";
+String accno="";
+String ifsc="";
+String brname="";
+String pan="";
+String add="";
+String country="";
+String state="";
+String city="";
+String pin="";
+String opb="";
+String pterms="";
+String name="";
+String mobno="";

@@ -74,154 +74,152 @@ class _ActivityState extends State<Activity> {
         iconTheme: const IconThemeData(color: Colors.black),
         backgroundColor: Colors.white,
       ),
-      body: Container(
-        child: Column(
-          children: [
-            Container(
-              alignment: Alignment.centerLeft,
-              height: height*5,
-              color: Colors.grey,
-              width: double.infinity,
-              child: Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      DateTime.now().toString().substring(8, 10),
-                      style:TextStyle(
-                          fontSize: width*4.5, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8, bottom: 8),
-                    child: Text(
-                      Mon[int.parse(DateTime.now().toString().substring(5, 6))],
-                      style: TextStyle(
-                          fontSize: width*4.5, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Row(
+      body: Column(
+        children: [
+          Container(
+            alignment: Alignment.centerLeft,
+            height: height*5,
+            color: Colors.grey,
+            width: double.infinity,
+            child: Row(
               children: [
-                time.isEmpty
-                    ? Container(
-                        alignment: Alignment.center,
-                        height: height * 80,
-                        width: width * 100,
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: height*20,
-                            ),
-                            const Icon(
-                              Icons.calendar_today_outlined,
-                              color: Colors.grey,
-                              size: 120,
-                            ),
-                            Text(
-                              "No Activities started",
-                              style:
-                                  TextStyle(fontSize: width*4.5, color: Colors.grey),
-                            )
-                          ],
-                        ),
-                      )
-                    : Container(
-                      height: height*70,
-                      width: width*100,
-                      child: ListView.builder(
-                          padding: EdgeInsets.zero,
-                          shrinkWrap: true,
-                          itemCount: time.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                height: height*14,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  color: Colors.cyan,
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    DateTime.now().toString().substring(8, 10),
+                    style:TextStyle(
+                        fontSize: width*4.5, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 8, bottom: 8),
+                  child: Text(
+                  Mon[int.parse(DateTime.now().toString().substring(5, 7))-1],
+                    style: TextStyle(
+                        fontSize: width*4.5, fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Row(
+            children: [
+              time.isEmpty
+                  ? Container(
+                      alignment: Alignment.center,
+                      height: height * 80,
+                      width: width * 100,
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: height*20,
+                          ),
+                          const Icon(
+                            Icons.calendar_today_outlined,
+                            color: Colors.grey,
+                            size: 120,
+                          ),
+                          Text(
+                            "No Activities started",
+                            style:
+                                TextStyle(fontSize: width*4.5, color: Colors.grey),
+                          )
+                        ],
+                      ),
+                    )
+                  : Container(
+                    height: height*70,
+                    width: width*100,
+                    child: ListView.builder(
+                        padding: EdgeInsets.zero,
+                        shrinkWrap: true,
+                        itemCount: time.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              height: height*14,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                color: Colors.cyan,
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  children: [
+                                Column(
+                                  children: [
+                                    Padding(
+                                            padding: const EdgeInsets.all(14.0),
+                                            child: Text(time[index], style: TextStyle(fontSize: width*4.5),),
+                                          ),
+                                    const Icon(Icons.circle,color: Colors.green,size: 29,)
+                                  ],
                                 ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                    children: [
-                                  Column(
-                                    children: [
-                                      Padding(
-                                              padding: const EdgeInsets.all(14.0),
-                                              child: Text(time[index], style: TextStyle(fontSize: width*4.5),),
-                                            ),
-                                      const Icon(Icons.circle,color: Colors.green,size: 29,)
-                                    ],
-                                  ),
-                                      Column(
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Container(
-                                                height: height*6,
-                                                width: width*50,
-                                                child: TextField(
-                                                  controller: _controllers[index],
-                                                  decoration: const InputDecoration(
-                                                    fillColor: Colors.white70,
-                                                    filled: true,
-                                                    border: OutlineInputBorder(),
-                                                    labelText: 'Customer Name',
-                                                  ),
+                                    Column(
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Container(
+                                              height: height*6,
+                                              width: width*50,
+                                              child: TextField(
+                                                controller: _controllers[index],
+                                                decoration: const InputDecoration(
+                                                  fillColor: Colors.white70,
+                                                  filled: true,
+                                                  border: OutlineInputBorder(),
+                                                  labelText: 'Customer Name',
                                                 ),
                                               ),
+                                            ),
+                                          ],
+                                        ),
+                                        Container(
+                                          // color: Colors.green,
+                                          width: width*50,
+                                          height: height*5,
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              IconButton(onPressed: (){
+
+                                              }, icon: const Icon(Icons.message_outlined,size: 29,)),
+                                              IconButton(onPressed: (){
+
+                                              }, icon: const Icon(Icons.photo,size: 29)),
+                                              IconButton(onPressed: (){
+
+                                              }, icon: const Icon(Icons.location_on,size: 29)),
+                                              IconButton(onPressed: (){
+
+                                              }, icon: const Icon(Icons.phone,size: 29))
                                             ],
                                           ),
-                                          Container(
-                                            // color: Colors.green,
-                                            width: width*50,
-                                            height: height*5,
-                                            child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                              children: [
-                                                IconButton(onPressed: (){
-
-                                                }, icon: const Icon(Icons.message_outlined,size: 29,)),
-                                                IconButton(onPressed: (){
-
-                                                }, icon: const Icon(Icons.photo,size: 29)),
-                                                IconButton(onPressed: (){
-
-                                                }, icon: const Icon(Icons.location_on,size: 29)),
-                                                IconButton(onPressed: (){
-
-                                                }, icon: const Icon(Icons.phone,size: 29))
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      IconButton(onPressed: (){
-                                        setState(() {
-                                          time.removeAt(index);
-                                          _controllers.removeAt(index);
-                                          count--;
-                                        });
-                                      },
-                                          icon: const Icon(Icons.remove_circle, color: Colors.red,size: 35,)
-                                      ),
-                                    ],
-                                  ),
+                                        ),
+                                      ],
+                                    ),
+                                    IconButton(onPressed: (){
+                                      setState(() {
+                                        time.removeAt(index);
+                                        _controllers.removeAt(index);
+                                        count--;
+                                      });
+                                    },
+                                        icon: const Icon(Icons.remove_circle, color: Colors.red,size: 35,)
+                                    ),
+                                  ],
                                 ),
                               ),
-                            );
-                          }),
-                    ),
-              ],
-            )
-          ],
-        ),
+                            ),
+                          );
+                        }),
+                  ),
+            ],
+          )
+        ],
       ),
     );
   }

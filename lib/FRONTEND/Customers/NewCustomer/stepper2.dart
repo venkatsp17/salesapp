@@ -1,5 +1,6 @@
 import 'package:csc_picker/csc_picker.dart';
 import 'package:flutter/material.dart';
+import 'my-globals.dart' as globals;
 
 class stepper2 extends StatefulWidget {
   const stepper2({Key? key}) : super(key: key);
@@ -68,6 +69,11 @@ class _stepper2State extends State<stepper2> {
                       width: width*80,
                       color: Colors.grey,
                       child: TextField(
+                        onEditingComplete: (){
+                          setState(() {
+                            globals.add =  '${_address.text} ${_address1.text}';
+                          });
+                        },
                         maxLines: 6,
                         decoration: const InputDecoration(
                           fillColor: Colors.white70,
@@ -106,16 +112,19 @@ class _stepper2State extends State<stepper2> {
                     onCountryChanged: (value) {
                       setState(() {
                         country = value;
+                        globals.country = country!;
                       });
                     },
                     onStateChanged: (value) {
                       setState(() {
                         state = value;
+                        globals.state = state!;
                       });
                     },
                     onCityChanged: (value) {
                       setState(() {
                         city = value;
+                        globals.city = city!;
                       });
                     },
                   ),
@@ -143,6 +152,11 @@ class _stepper2State extends State<stepper2> {
                   height: height*6,
                   width: width*50,
                   child: TextField(
+                    onEditingComplete: (){
+                      setState(() {
+                        globals.pin =  _pincode.text;
+                      });
+                    },
                     decoration: const InputDecoration(
                       fillColor: Colors.white70,
                       filled: true,
