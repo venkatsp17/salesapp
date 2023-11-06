@@ -1,16 +1,16 @@
-# sales
+# Sales App
 
-A sales management application to manage orders, collections, expenses.
+Sales App is a flutter application which is build to manage orders, collections and expenses of sales person. It acts as a intermediate between sales person and a company.
 
-## Getting Started
+## Tech Stack
 
-This project is a starting point for a Flutter application.
+Frontent - Flutter\
+Backend - Django REST Framework\
+Database - MySql
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Visuals
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<img width="333" alt="Screenshot 2023-06-17 at 8 46 50 PM" src="https://github.com/venkatsp17/salesapp/assets/109540044/b16d9833-79f5-4a3f-b8ce-6681de400c4a">
+<img width="333" alt="Screenshot 2023-06-17 at 8 46 57 PM" src="https://github.com/venkatsp17/salesapp/assets/109540044/893f4b59-45e7-4fe1-990b-6eaf5bcb8b7d">
+<img width="333" alt="Screenshot 2023-06-17 at 8 47 33 PM" src="https://github.com/venkatsp17/salesapp/assets/109540044/2c4ab8ba-d49b-4f42-b233-fce87a6441be">
