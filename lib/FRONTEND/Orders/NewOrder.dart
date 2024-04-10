@@ -225,11 +225,11 @@ class _NeworderState extends State<Neworder> {
                     ),
                     Container(
                         height: height*6,
-                        width: width*46,
+                        width: width*44,
                         child: TypeAheadField<Customer?>(
                           textFieldConfiguration: TextFieldConfiguration(
-                              decoration: InputDecoration(
-                                errorText: Validation(_cmpname, 'Select the customer!'),
+                              decoration: const InputDecoration(
+                                // errorText: Validation(_cmpname, 'Select the customer!'),
                                   border: OutlineInputBorder()),
                               controller: _cmpname,
                           ),
@@ -239,7 +239,7 @@ class _NeworderState extends State<Neworder> {
                           itemBuilder: (context, Customer? suggestion) {
                             final customer = suggestion!;
                             return ListTile(
-                              leading: Text(customer.id),
+                              leading: Text((customer.id).toString()),
                               title: Text(customer.name),
                               subtitle: Text(customer.address),
                             );
@@ -247,7 +247,7 @@ class _NeworderState extends State<Neworder> {
                           onSuggestionSelected: (Customer? suggestion) {
                             final customer = suggestion!;
                             setState(() {
-                              customerid = customer.id;
+                              customerid = (customer.id).toString();
                               _cmpname.text = customer.name;
                             });
                           },
@@ -421,7 +421,7 @@ class _NeworderState extends State<Neworder> {
                                           child: TypeAheadField<Product?>(
                                             textFieldConfiguration: TextFieldConfiguration(
                                                 decoration: InputDecoration(
-                                                  errorText: Validation(orderitems[index]['itemname'], 'Select the product!'),
+                                                  // errorText: Validation(orderitems[index]['itemname'], 'Select the product!'),
                                                   filled: true,
                                                     fillColor: Colors.white70,
                                                     border: const OutlineInputBorder()),
@@ -433,13 +433,13 @@ class _NeworderState extends State<Neworder> {
                                             itemBuilder: (context, Product? suggestion) {
                                               final product = suggestion!;
                                               return ListTile(
-                                                subtitle: Text(product.id),
-                                                title: Text(product.name),
+                                                subtitle: Text(product.ProductId.toString()),
+                                                title: Text(product.ProductName),
                                               );
                                             },
                                             onSuggestionSelected: (Product? suggestion) {
                                               final product = suggestion!;
-                                              orderitems[index]['itemname'].text = product.name;
+                                              orderitems[index]['itemname'].text = product.ProductName;
                                             },
                                           )
                                       ),
@@ -553,7 +553,7 @@ class _NeworderState extends State<Neworder> {
                                                   //   ),
                                                   // ),
                                                   SizedBox(
-                                                    height: height*5.8,
+                                                    height: height*5,
                                                     width: width*20,
                                                     child: DropdownButtonFormField(
                                                       decoration: InputDecoration(
@@ -587,8 +587,8 @@ class _NeworderState extends State<Neworder> {
                                                       decoration: InputDecoration(
                                                         fillColor: Colors.white70,
                                                         labelText: "QTY",
-                                                        errorText: Validation(orderitems[index]
-                                                        ['details'][index1]['qty'], ''),
+                                                        // errorText: Validation(orderitems[index]
+                                                        // ['details'][index1]['qty'], ''),
                                                         filled: true,
                                                         border: OutlineInputBorder(),
                                                       ),
@@ -619,8 +619,8 @@ class _NeworderState extends State<Neworder> {
                                                         labelText: "RATE",
                                                         fillColor: Colors.white70,
                                                         filled: true,
-                                                        errorText: Validation(orderitems[index]
-                                                        ['details'][index1]['rate'], ''),
+                                                        // errorText: Validation(orderitems[index]
+                                                        // ['details'][index1]['rate'], ''),
                                                         border: const OutlineInputBorder(),
                                                       ),
                                                       onEditingComplete: (){
@@ -677,7 +677,7 @@ class _NeworderState extends State<Neworder> {
                                   Padding(
                                     padding: const EdgeInsets.all(4.0),
                                     child: Container(
-                                      height: height*3,
+                                      height: height*3.5,
                                       color: Colors.grey,
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
@@ -758,7 +758,7 @@ class _NeworderState extends State<Neworder> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
-                  height: height*15,
+                  height: height*16,
                   color: Colors.grey,
                   child: Padding(
                     padding: const EdgeInsets.all(6.0),

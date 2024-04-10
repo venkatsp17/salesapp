@@ -8,18 +8,16 @@ class Page1 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        disfield(context,"Customer ID", data['customerid']),
-        disfield(context,"Customer Type", data['customertype']),
-        disfield(context,"Primary contact", data['primarycontact']),
-        disfield(context,"Company Name", data['companyname']),
-        disfield(context,"Customer Display Name", data['customerdisname']),
-        disfield(context,"Customer Ph", data['customerph']),
-        disfield(context,"GST IN", data['gstin']),
-        disfield(context,"Bank Name", data['bankname']),
-        disfield(context,"Account No", data['accountno']),
-        disfield(context,"IFSC CODE", data['ifsccode']),
-        disfield(context,"Branch Name", data['branch']),
-        disfield(context,"Pan No", data['panno']),
+        disfield(context,"Customer ID", data.CustomerId.toString()),
+        disfield(context,"Primary contact", data.ContactPerson),
+        disfield(context,"Company Name", data.CustomerName),
+        disfield(context,"Customer Ph 1", data.PhoneNumber1),
+        disfield(context,"Customer Ph 1", data.PhoneNumber2),
+        disfield(context,"Opening Balance", data.TotalPendingAmount),
+        // disfield(context,"Account No", data['accountno']),
+        // disfield(context,"IFSC CODE", data['ifsccode']),
+        // disfield(context,"Branch Name", data['branch']),
+        // disfield(context,"Pan No", data['panno']),
       ],
     );
   }

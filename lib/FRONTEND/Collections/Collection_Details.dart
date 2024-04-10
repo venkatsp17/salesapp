@@ -2,6 +2,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:sales/BACKEND/Customersb.dart';
+import 'package:sales/BACKEND/Ordersb.dart';
 import 'package:sales/FRONTEND/Customers/Customer_Details.dart';
 
 import '../../BACKEND/detailsb.dart';
@@ -18,44 +20,51 @@ class Collection_details extends StatefulWidget {
 
 class _Collection_detailsState extends State<Collection_details> {
   final Detailsb obj = Detailsb();
+  final Customersb obj1 = Customersb();
   List orders = [];
   List payments = [];
-  late Map<String, dynamic> customer;
-  late Map<String, dynamic> order;
+  late Customer1 customer;
+  late Order order;
   late Map<String, dynamic> payment;
 
 
   @override
   void initState() {
     // TODO: implement initState
-
     if(widget.details != "Nil"){
-      getopvalues(widget.details['customerid']);
-      assignvalues();
+      // print(widget.details.CustomerId);
+      String id = (widget.details.CustomerId).toString();
+      getopvalues(id);
     }
     super.initState();
   }
 
   getopvalues(String id) async {
-    dynamic resultant = await obj.makeGetRequest1(id);
-    if (resultant == null) {
-      print("Unable to retrieve");
-    } else {
-      setState(() {
-        orders = resultant[0];
-        payments = resultant[1];
-      });
-    }
+
+    obj1.makeGetRequest(int.parse(id)).then((value) async {
+
+      dynamic resultant = await obj.makeGetRequest1(id);
+      if (resultant == null) {
+        print("Unable to retrieve");
+      } else {
+        setState(() {
+          customer = value;
+          orders = resultant[0];
+          payments = resultant[1];
+        });
+        assignvalues();
+      }
+    });
+
   }
 
   assignvalues() {
     setState(() {
-      customer = widget.details;
-      _cmpname.text = widget.details['companyname'];
-      _customerdisname.text = widget.details['customerdisname'];
-      _customerph.text = widget.details['customerph'];
-      _gst.text = widget.details['gstin'];
-      _balance.text = widget.details['openingbalance'];
+      _cmpname.text = customer.CustomerName;
+      _customerdisname.text = customer.ContactPerson;
+      _customerph.text = customer.PhoneNumber1;
+      _gst.text = "";
+      _balance.text = customer.TotalPendingAmount;
     });
   }
 
@@ -74,14 +83,8 @@ class _Collection_detailsState extends State<Collection_details> {
       cust = customers;
     });
     for (int i = 0; i < cust!.length; i++) {
-      if (id == cust![i]['customerid']) {
+      if (int.parse(id) == cust![i]['CustomerId']) {
         setState(() {
-          customer = cust![i];
-          _cmpname.text = cust![i]['companyname'];
-          _customerdisname.text = cust![i]['customerdisname'];
-          _customerph.text = cust![i]['customerph'];
-          _gst.text = cust![i]['gstin'];
-          _balance.text = cust![i]['openingbalance'];
           _orderdate.text = '';
           _deliverymethod.text = '';
           _paymentmethod.text = '';
@@ -161,37 +164,37 @@ class _Collection_detailsState extends State<Collection_details> {
                             ),
                           ),
                           Container(
-                              height: height*3,
-                              width: width*46,
-                              child: TypeAheadField<Customer?>(
-                                textFieldConfiguration: TextFieldConfiguration(
-                                    decoration: const InputDecoration(
-                                        border: OutlineInputBorder()),
-                                    controller: _cmpname),
-                                suggestionsCallback: (pattern) async {
-                                  return await obj.getcustomers(pattern);
-                                },
-                                itemBuilder: (context, Customer? suggestion) {
-                                  final customer = suggestion!;
-                                  return ListTile(
-                                    title: Text(customer.name),
-                                    subtitle: Text(customer.address),
-                                  );
-                                },
-                                onSuggestionSelected: (Customer? suggestion) {
-                                  final customer = suggestion!;
-                                  filterdata(customer.id);
-                                },
-                              )
-                              // child: TextField(
-                              //   decoration: const InputDecoration(
-                              //     fillColor: Colors.white70,
-                              //     filled: true,
-                              //     border: OutlineInputBorder(),
-                              //   ),
-                              //   controller: _cmpname
-                              // ),
-                              ),
+                            height: height*3,
+                            width: width*46,
+                            child: TypeAheadField<Customer?>(
+                              textFieldConfiguration: TextFieldConfiguration(
+                                  decoration: const InputDecoration(
+                                      border: OutlineInputBorder()),
+                                  controller: _cmpname),
+                              suggestionsCallback: (pattern) async {
+                                return await obj.getcustomers(pattern);
+                              },
+                              itemBuilder: (context, Customer? suggestion) {
+                                final customer = suggestion!;
+                                return ListTile(
+                                  title: Text(customer.name),
+                                  subtitle: Text(customer.address),
+                                );
+                              },
+                              onSuggestionSelected: (Customer? suggestion) {
+                                final customer = suggestion!;
+                                filterdata((customer.id).toString());
+                              },
+                            ),
+                            // child: TextField(
+                            //   decoration: const InputDecoration(
+                            //     fillColor: Colors.white70,
+                            //     filled: true,
+                            //     border: OutlineInputBorder(),
+                            //   ),
+                            //   controller: _cmpname
+                            // ),
+                          ),
                         ],
                       ),
                     ),
@@ -199,7 +202,7 @@ class _Collection_detailsState extends State<Collection_details> {
                       padding: const EdgeInsets.only(
                           left: 2.0, right: 2.0, bottom: 2.0),
                       child:
-                          textfield("Customer Display Name", _customerdisname),
+                      textfield("Customer Display Name", _customerdisname),
                     ),
                     Padding(
                         padding: const EdgeInsets.only(left: 2.0, right: 2.0),
@@ -235,7 +238,7 @@ class _Collection_detailsState extends State<Collection_details> {
                         ),
                         TextButton(
                           onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=>Customerdetails(data: customer)));
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>Customerdetails(data: customer)));
                           },
                           child: const Text(
                             'more details>>',
@@ -272,14 +275,14 @@ class _Collection_detailsState extends State<Collection_details> {
                           child: textfield("Order Date", _orderdate)),
                       Padding(
                           padding: const EdgeInsets.only(left: 2.0, right: 2.0),
-                          child: textfield("Delivery Method", _deliverymethod)),
+                          child: textfield("Discount Amount", _deliverymethod)),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           TextButton(
                             onPressed: () {
                               try{
-                                if(order.isNotEmpty){
+                                if(order != null){
                                   Navigator.push(context, MaterialPageRoute(builder: (context)=>Orderdetails(data: order)));
                                 }
                               }
@@ -424,7 +427,7 @@ class _Collection_detailsState extends State<Collection_details> {
               padding: const EdgeInsets.all(12.0),
               child: Container(
                 alignment: Alignment.center,
-                color: Colors.blueGrey,
+                color: Colors.deepOrange,
                 height: height*4,
                 width: width*25,
                 child: Text(
@@ -448,8 +451,15 @@ class _Collection_detailsState extends State<Collection_details> {
                         fontSize: width*4.5,
                         color: Colors.black),
                   ),
+                  // Text(
+                  //   "DELIVERY DATE",
+                  //   style: TextStyle(
+                  //       fontWeight: FontWeight.bold,
+                  //       fontSize: width*4.5,
+                  //       color: Colors.black),
+                  // ),
                   Text(
-                    "DELIVERY DATE",
+                    "STATUS",
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: width*4.5,
@@ -475,13 +485,13 @@ class _Collection_detailsState extends State<Collection_details> {
                       child: GestureDetector(
                         onTap: () {
                           setState(() {
-                            order = cdata[index];
-                            _orderdate.text = cdata[index]['date'];
-                            _deliverymethod.text = cdata[index]['delivery'];
+                            order = Order.fromJson(cdata[index]);
+                            _orderdate.text = cdata[index]['OrderDate'];
+                            _deliverymethod.text = cdata[index]['DiscountAmount'];
                           });
                         },
                         child: Container(
-                          color: Colors.blueGrey,
+                          color: Colors.orangeAccent,
                           height: height*4.8,
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
@@ -489,21 +499,21 @@ class _Collection_detailsState extends State<Collection_details> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  cdata[index]["orderid"],
+                                  cdata[index]["OrderId"].toString(),
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: width*4.5,
                                       color: Colors.black),
                                 ),
                                 Text(
-                                  cdata[index]["delivereddate"],
+                                  cdata[index]["OrderStatus"],
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: width*4.5,
                                       color: Colors.black),
                                 ),
                                 Text(
-                                  cdata[index]["total"],
+                                  cdata[index]["Total"],
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: width*4.5,
@@ -521,7 +531,7 @@ class _Collection_detailsState extends State<Collection_details> {
               padding: const EdgeInsets.all(12.0),
               child: Container(
                 alignment: Alignment.center,
-                color: Colors.blueGrey,
+                color: Colors.green,
                 height: height*4,
                 width: width*25,
                 child: Text(
@@ -552,13 +562,13 @@ class _Collection_detailsState extends State<Collection_details> {
                         fontSize: width*4.5,
                         color: Colors.black),
                   ),
-                  Text(
-                    "STATUS",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: width*4.5,
-                        color: Colors.black),
-                  ),
+                  // Text(
+                  //   "STATUS",
+                  //   style: TextStyle(
+                  //       fontWeight: FontWeight.bold,
+                  //       fontSize: width*4.5,
+                  //       color: Colors.black),
+                  // ),
                   Text(
                     "AMOUNT",
                     style: TextStyle(
@@ -580,16 +590,16 @@ class _Collection_detailsState extends State<Collection_details> {
                         onTap: () {
                           setState(() {
                             payment = pdata[index];
-                            _paymentmethod.text = pdata[index]['paymentmode'];
+                            _paymentmethod.text = pdata[index]['PaymentMode'];
                           });
                         },
                         child: Container(
                           decoration: BoxDecoration(
-                            border: pdata[index]['status'] == 'Verified'
+                            border: pdata[index]['ReceivedDate'] != '' || pdata[index]['ReceivedDate'] != null
                                 ? Border.all(width: 0)
                                 : Border.all(),
-                            color: pdata[index]['status'] == 'Verified'
-                                ? Colors.blueGrey
+                            color: pdata[index]['ReceivedDate'] != '' || pdata[index]['ReceivedDate'] != null
+                                ? Colors.orangeAccent
                                 : Colors.transparent,
                           ),
                           height: height*4.8,
@@ -599,28 +609,28 @@ class _Collection_detailsState extends State<Collection_details> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  pdata[index]["paymentid"],
+                                  pdata[index]["CollectionId"].toString(),
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: width*4.5,
                                       color: Colors.black),
                                 ),
                                 Text(
-                                  pdata[index]["paymentdate"],
+                                  pdata[index]["ReceivedDate"],
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: width*4.5,
                                       color: Colors.black),
                                 ),
+                                // Text(
+                                //   pdata[index]["CollectionNotes"],
+                                //   style: TextStyle(
+                                //       fontWeight: FontWeight.bold,
+                                //       fontSize: width*4.5,
+                                //       color: Colors.black),
+                                // ),
                                 Text(
-                                  pdata[index]["status"],
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: width*4.5,
-                                      color: Colors.black),
-                                ),
-                                Text(
-                                  pdata[index]["amtreceived"],
+                                  pdata[index]["Amount"],
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: width*4.5,

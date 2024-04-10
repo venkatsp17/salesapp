@@ -108,7 +108,7 @@ class _stepper2State extends State<stepper2> {
                   width: width*45,
                   child: CSCPicker(
                     flagState: CountryFlag.DISABLE,
-                    defaultCountry: DefaultCountry.India,
+                    defaultCountry: CscCountry.India,
                     onCountryChanged: (value) {
                       setState(() {
                         country = value;

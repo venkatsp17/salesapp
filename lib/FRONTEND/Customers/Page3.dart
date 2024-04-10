@@ -8,7 +8,7 @@ class Page3 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        disfield(context,"Opening Balance", data['openingbalance']),
+        disfield(context,"Opening Balance", data['TotalPendingAmount']),
         disfield(context,"Payment Terms", data['paymentterms']),
         disfield(context,"Name", data['name']),
         disfield(context,"Mobile No", data['mobileno']),

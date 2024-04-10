@@ -1,5 +1,6 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
+import 'package:sales/BACKEND/Customersb.dart';
 import 'package:sales/BACKEND/Ordersb.dart';
 import 'package:sales/FRONTEND/Customers/NewCustomer/NewCustomer.dart';
 import 'package:sales/FRONTEND/Orders/NewOrder.dart';
@@ -15,9 +16,11 @@ class Orders extends StatefulWidget {
 
 class _OrdersState extends State<Orders> {
   final Ordersb obj = Ordersb();
-  List data = [];
-  List data1 = [];
-  List data2 = [];
+  final Customersb obj1 = Customersb();
+  List<Order> notapproved = [];
+  List<Order> pending = [];
+  List<Order> approved = [];
+
   @override
   void initState() {
     // TODO: implement initState
@@ -25,24 +28,17 @@ class _OrdersState extends State<Orders> {
     super.initState();
   }
 
-  fetchOrderData() async {
-    dynamic resultant = await obj.makeGetRequest();
-    if (resultant == null) {
-      print("Unable to retrieve");
-    } else {
-      setState(() {
-        for (int i = 0; i < resultant.length; i++) {
-          if (resultant[i]['status'] == "Not Approved" ||
-              resultant[i]['status'] == "Pending") {
-            data2.add(resultant[i]);
-          } else if (resultant[i]['status'] == "Approved") {
-            data1.add(resultant[i]);
-          } else {
-            data.add(resultant[i]);
-          }
-        }
-      });
-    }
+  Future<void> fetchOrderData() async {
+    final resultant = await obj.makeGetRequest("Not Approved");
+    final resultant1 = await obj.makeGetRequest("Pending");
+    final resultant2 = await obj.makeGetRequest("Approved");
+    setState(() {
+      notapproved = resultant;
+      pending = resultant1;
+      approved = resultant2;
+    });
+
+    // print(approved[0]);
   }
 
   @override
@@ -88,11 +84,9 @@ class _OrdersState extends State<Orders> {
         ),
       ),
       backgroundColor: const Color(0xffA09191),
-      body: data2.isEmpty && data.isEmpty && data1.isEmpty
-          ? Center(
-              child: LoadingAnimationWidget.hexagonDots(color: Colors.black, size: 50),
-            )
-          : SingleChildScrollView(
+      body: approved.isEmpty && notapproved.isEmpty && pending.isEmpty?
+         Center(child: LoadingAnimationWidget.hexagonDots(color: Colors.black, size: 50),)
+      :SingleChildScrollView(
               child: Column(
                 children: [
                   Container(
@@ -110,7 +104,7 @@ class _OrdersState extends State<Orders> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    "Delivery",
+                                    "Not Approved",
                                     style: TextStyle(
                                         color: Colors.black,
                                         fontSize: width * 5,
@@ -130,10 +124,10 @@ class _OrdersState extends State<Orders> {
                             softWrap: true,
                             maxLines: 1,
                           ),
-                          expanded: (data.isEmpty)
+                          expanded: notapproved.isEmpty
                               ? const Text("No Data")
-                              : CList(context, data, const Color(0xffB6E2D3),
-                                  Colors.green),
+                              : CList(context, notapproved, Color(0xffFBC490),
+                              Colors.orange),
                           theme: const ExpandableThemeData(hasIcon: false),
                         ),
                         ExpandablePanel(
@@ -167,9 +161,9 @@ class _OrdersState extends State<Orders> {
                             softWrap: true,
                             maxLines: 1,
                           ),
-                          expanded: (data1.isEmpty)
+                          expanded: approved.isEmpty
                               ? const Text("No Data")
-                              : CList(context, data1, Color(0xffFBC490),
+                              : CList(context, approved, Color(0xffFBC490),
                                   Colors.orange),
                           theme: const ExpandableThemeData(hasIcon: false),
                         ),
@@ -204,9 +198,9 @@ class _OrdersState extends State<Orders> {
                             softWrap: true,
                             maxLines: 1,
                           ),
-                          expanded: (data2.isEmpty)
+                          expanded: pending.isEmpty
                               ? const Text("No Data")
-                              : CList(context, data2, const Color(0xffF36870),
+                              : CList(context, pending, const Color(0xffF36870),
                                   Colors.red),
                           theme: const ExpandableThemeData(hasIcon: false),
                         ),
@@ -223,6 +217,11 @@ class _OrdersState extends State<Orders> {
     var size = MediaQuery.of(context).size;
     var height = size.height / 100;
     var width = size.width / 100;
+
+    Future<String> GetName(int id) async{
+      final customer = await obj1.makeGetRequest(id);
+      return customer.CustomerName.toString();
+    }
 
     return Container(
       color: color,
@@ -263,13 +262,23 @@ class _OrdersState extends State<Orders> {
                                     fontWeight: FontWeight.bold,
                                     fontSize: width * 3.5,
                                   ),
-                                ),
-                                Text(
-                                  cdata[index]["customername"],
-                                  style: TextStyle(
-                                    fontSize: width * 3.5,
-                                  ),
-                                ),
+                                ),FutureBuilder(
+                                    future: GetName(cdata[index].CustomerId),
+                                    builder: (BuildContext context, AsyncSnapshot<String> snapshot){
+                                      if(snapshot.hasData){
+                                        return Text(
+                                          snapshot.data.toString(),
+                                          style: TextStyle(
+                                            fontSize: width * 3.5,
+                                          ),
+                                        );
+                                      }
+                                      else if(snapshot.hasError){
+                                        return const Text("Error");
+                                      }
+                                      return const CircularProgressIndicator(strokeWidth: 1.0,);
+                                    }
+                                )
                               ],
                             ),
                             Row(
@@ -282,7 +291,7 @@ class _OrdersState extends State<Orders> {
                                   ),
                                 ),
                                 Text(
-                                  cdata[index]["orderid"],
+                                  cdata[index].OrderId.toString(),
                                   style: TextStyle(
                                     fontSize: width * 3.5,
                                   ),
@@ -299,7 +308,7 @@ class _OrdersState extends State<Orders> {
                                   ),
                                 ),
                                 Text(
-                                  cdata[index]["date"],
+                                  cdata[index].OrderDate,
                                   style: TextStyle(
                                     fontSize: width * 3.5,
                                   ),
@@ -327,7 +336,7 @@ class _OrdersState extends State<Orders> {
                                 alignment: Alignment.center,
                                 width: width * 25,
                                 child: Text(
-                                  cdata[index]['status'],
+                                  cdata[index].OrderStatus,
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: color1,

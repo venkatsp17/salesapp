@@ -5,6 +5,7 @@ import 'package:sales/FRONTEND/Collections/Collections.dart';
 import 'package:sales/FRONTEND/Customers/Customers.dart';
 import 'package:sales/FRONTEND/Expenses/Expenses.dart';
 import 'package:sales/FRONTEND/Orders/Orders.dart';
+// import 'package:sales/FRONTEND/Analytics.dart';
 import 'package:sales/main.dart';
 
 class Mainscreen extends StatefulWidget {
@@ -29,11 +30,11 @@ class _MainscreenState extends State<Mainscreen> {
       return MaterialApp(
         debugShowCheckedModeBanner: false,
         routes: {
-          '/analytics': (context) => const Orders(),
+          '/analytics': (context) => Orders(),
           '/details': (context) => const Collection_details(details: "Nil",),
           '/customerlist': (context) => const Customers(),
-          '/itemlist': (context) => const Collections(),
-          '/leaveapply': (context) => const Orders(),
+          // '/itemlist': (context) => const Collections(),
+          // '/leaveapply': (context) => const Orders(),
           '/logout': (context) => const Orders(),
         },
         home: DefaultTabController(
@@ -55,7 +56,7 @@ class _MainscreenState extends State<Mainscreen> {
                 tabs: [
                   Tab(text: "Orders", icon: Icon(Icons.shopping_cart)),
                   Tab(text: "Collections", icon: Icon(Icons.attach_money_outlined)),
-                  Tab(text: "Expenses", icon: Icon(Icons.minimize_outlined)),
+                  // Tab(text: "Expenses", icon: Icon(Icons.minimize_outlined)),
                 ],
               ),
               actions: [

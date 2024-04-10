@@ -6,10 +6,9 @@ class Paymentdetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     var size = MediaQuery.of(context).size;
-    var height = size.height/100;
-    var width = size.width/100;
+    var height = size.height / 100;
+    var width = size.width / 100;
 
     return Scaffold(
       appBar: AppBar(
@@ -19,88 +18,126 @@ class Paymentdetails extends StatelessWidget {
         title: Text(
           "Payment Details",
           style: TextStyle(
-              fontWeight: FontWeight.bold, fontSize: width*4.5, color: Colors.black),
+              fontWeight: FontWeight.bold,
+              fontSize: width * 4.5,
+              color: Colors.black),
         ),
       ),
-      body: Column(
-        children: [
-          view(context,"Company Name", data['companyname']),
-          view(context,"Amount Recieved", data['amtreceived']),
-          view(context,"Payment Date", data['paymentdate']),
-          view(context,"Payment Mode", data['paymentmode']),
-          view(context,"Payment ID", data['paymentid']),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
+      body: Container(
+        decoration: const BoxDecoration(
+          // gradient: LinearGradient(
+          //   begin: Alignment.topCenter,
+          //   end: Alignment.bottomCenter,
+          //   colors: [Colors.blueGrey, Colors.black12],
+          // ),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            const SizedBox(height: 20),
+            Container(
+              color: Colors.orangeAccent,
+              child: const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
                 child: Text(
-                  "REMARKS",
+                  "Payment Details",
                   style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: width*4.5,
-                      color: Colors.black),
-                ),
-              ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Container(
-              color: Colors.grey[200],
-              width: double.infinity,
-              height: height*40,
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    data['remarks'],
-                    style: TextStyle(
-                        fontSize: width*4.5,
-                        color: Colors.black),
+                    color: Colors.white,
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
             ),
-          ),
-        ],
+            const SizedBox(height: 20),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                       Container(
+                         decoration: BoxDecoration(
+                           border: Border.all(color: Colors.black,width: 1),
+                           color: Colors.white,
+                           borderRadius: BorderRadius.circular(10)
+                         ),
+                         child: Padding(
+                           padding: const EdgeInsets.all(8.0),
+                           child: Column(
+                             children: [
+                               view(context, "Amount Received", data['Amount'].toString()),
+                               view(context, "Payment Date", data['ReceivedDate']),
+                               view(context, "Payment Mode", data['PaymentMode']),
+                               view(context, "Payment ID", data['CollectionId'].toString()),
+                             ],
+                           ),
+                         ),
+                       ),
+                        const SizedBox(height: 20),
+                        const Text(
+                          "Remarks",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        Container(
+                          width: double.infinity,
+                          height: height*15,
+                          padding: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black,width: 1),
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Text(
+                            data['CollectionNotes'],
+                            style: const TextStyle(fontSize: 16),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+
+          ],
+        ),
       ),
     );
   }
 
-  Widget view(BuildContext context, Name, value) {
-
-    var size = MediaQuery.of(context).size;
-    var height = size.height/100;
-    var width = size.width/100;
-
+  Widget view(BuildContext context, String name, String value) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SizedBox(
-            width: width*40,
-            child: Text(
-              Name,
-              style: TextStyle(
-                fontSize: width*4.5,
-                fontWeight: FontWeight.bold,
-              ),
+          Text(
+            name,
+            style: const TextStyle(
+              fontSize: 16,
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
             ),
           ),
-          SizedBox(
-            width: width*50,
-            child: Text(
-              value,
-              style: TextStyle(
-                fontSize: width*4.5,
-              ),
+          Text(
+            value,
+            style: const TextStyle(
+              fontSize: 16,
+              color: Colors.black,
             ),
           ),
         ],
       ),
     );
   }
-
 }

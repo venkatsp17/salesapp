@@ -8,11 +8,11 @@ class Page2 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        disfield(context,"Address", data['address']),
-        disfield(context,"Country", data['country']),
-        disfield(context,"State", data['state']),
-        disfield(context,"City", data['city']),
-        disfield(context,"Pincode", data['pincode']),
+        disfield(context,"Address", data.Address),
+        disfield(context,"Country", data.Country),
+        disfield(context,"State", data.State),
+        disfield(context,"City", data.City),
+        disfield(context,"Pincode", data.Pincode),
       ],
     );
   }

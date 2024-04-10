@@ -3,32 +3,35 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class Product{
-  final String name;
-  final String price;
-  final String id;
+  final String ProductName;
+  final String Price;
+  final int ProductId;
+  final int KG;
 
   const Product({
-    required this.name,
-    required this.price,
-    required this.id
+    required this.ProductName,
+    required this.Price,
+    required this.ProductId,
+    required this.KG
   });
 
   static Product fromJson(Map<String,dynamic> data) => Product(
-    name: data['productname'],
-    price: data['productprice'],
-    id: data['productid'],
+    ProductName: data['ProductName'],
+    Price: data['Price'],
+    ProductId: data['ProductId'],
+      KG: data['KG']
   );
 
 }
 class Productsb{
   Future getproducts(String query) async {
-    final url2 = Uri.parse("http://127.0.0.1:8000/api/products/");
+    final url2 = Uri.parse("http://10.0.2.2:8000/api/products/");
     http.Response response = await http.get(url2);
     // print('Body: ${response.body}');
     List? resbody = jsonDecode(response.body);
     if (query=="Null"){
       if(response.statusCode==200){
-        return resbody;
+        return resbody?.map((data) => Product.fromJson(data)).toList();
       }
       else{
         print("Unable to retrieve data");
@@ -38,7 +41,7 @@ class Productsb{
     else{
       if(response.statusCode==200) {
         return resbody?.map((data) => Product.fromJson(data)).where((element) {
-          final namelower = element.name.toLowerCase();
+          final namelower = element.ProductName.toLowerCase();
           final  querylower = query.toLowerCase();
           return namelower.contains(querylower);
         }).toList();

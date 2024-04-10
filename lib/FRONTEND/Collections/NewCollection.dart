@@ -109,7 +109,7 @@ class _NewcollecState extends State<Newcollec> {
                           itemBuilder: (context, Customer? suggestion) {
                             final customer = suggestion!;
                             return ListTile(
-                              leading: Text(customer.id),
+                              leading: Text((customer.id).toString()),
                               title: Text(customer.name),
                               subtitle: Text(customer.address),
                             );
@@ -117,7 +117,7 @@ class _NewcollecState extends State<Newcollec> {
                           onSuggestionSelected: (Customer? suggestion) {
                             final customer = suggestion!;
                             setState(() {
-                              customerid = customer.id;
+                              customerid = (customer.id).toString();
                               _companyname.text = customer.name;
                             });
                           },

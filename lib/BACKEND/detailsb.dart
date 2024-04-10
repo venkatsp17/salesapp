@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 class Customer{
   final String name;
   final String address;
-  final String id;
+  final int id;
 
   const Customer({
     required this.name,
@@ -15,9 +15,9 @@ class Customer{
   });
 
   static Customer fromJson(Map<String,dynamic> data) => Customer(
-      name: data['companyname'],
-      address: data['address'],
-      id: data['customerid'],
+      name: data['CustomerName'],
+      address: data['Address'],
+      id: data['CustomerId'],
   );
 
 }
@@ -25,7 +25,7 @@ class Customer{
 class Detailsb{
   //http://127.0.0.1:8000/
   //http://10.0.2.2:8000/
-  var u = "http://127.0.0.1:8000/";
+  var u = "http://10.0.2.2:8000/";
 
   Future makeGetRequest() async {
     final url2 = Uri.parse("${u}api/collection/");
@@ -48,8 +48,8 @@ class Detailsb{
     }
   }
   Future makeGetRequest1(String id) async {
-    final url2 = Uri.parse("${u}api/details/$id");
-    final url3 = Uri.parse("${u}api/details1/$id");
+    final url2 = Uri.parse("${u}api/corders/$id");
+    final url3 = Uri.parse("${u}api/ccollections/$id");
     http.Response response = await http.get(url2);
     http.Response response1 = await http.get(url3);
     // print('Status code: ${response.statusCode}');
@@ -78,7 +78,7 @@ class Detailsb{
   }
 
   Future getcustomers(String query) async {
-    final url2 = Uri.parse("${u}api/customers/");
+    final url2 = Uri.parse("${u}api/ucustomers/0");
     http.Response response = await http.get(url2);
     // print('Body: ${response.body}');
     List? resbody = jsonDecode(response.body);
